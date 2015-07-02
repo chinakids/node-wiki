@@ -1,0 +1,16 @@
+doctype html
+html
+  head
+    title #{title}
+    meta(charset='UTF-8')
+    meta(name='description',content='这是一个基于 markdown 的 wiki 系统')
+    meta(name='renderer',content='webkit')
+    meta(name='viewport',content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0')
+    link(rel='stylesheet', href='/lib/bootstrap/dist/css/bootstrap.min.css')
+    link(rel='stylesheet', href='/lib/font-awesome/css/font-awesome.min.css')
+    link(rel='stylesheet', href='/stylesheets/style.css')
+  body
+    block content
+
+  script(src='/lib/jquery/dist/jquery.min.js')
+  script(src='/lib/bootstrap/dist/js/bootstrap.min.js')
