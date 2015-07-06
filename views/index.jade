@@ -2,5 +2,11 @@ extends layout
 
 block content
   div
-    :markdown
-      
+    !{html}
+  div.fix-menu
+    div.title 文档目录
+      i.fa.fa-list-ul.pull-right
+    ul.clearfix
+      each item in menu
+        li 
+          a(href="javascript:;",data-href="#menu-#{$index}",name="menu") #{item}

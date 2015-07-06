@@ -1,75 +1,52 @@
-/**
- * 目录节点
- */
-function node(menu){
-  this.menu = menu;
-  this.next = null;
-}
-/**
- * 目录（链表）
- */
-function llist(){
-  this.head = new Node('head');
-  this.find = find;
-  this.insert = insert;
-  this.remove = remove;
-}
-/**
- * 链表查找方法
- */
-function find(){
-  var currNode = this.head;
-  while (currNode.menu != item){
-    currNode = currNode.next;
-  }
-  return currNode;
-}
-/**
- * 链表插入方法
- */
-function insert(newMenu,item){
-  var newNode = new Node(newMenu);
-  var current = this.find(item);
-  newNode.next = current.next;
-  current.next = newNode;
-}
-/**
- * 查找指定节点前节点
- */
-function findPrevious(item){
-  var currNode = this.head;
-  while(!(currNode.next == null) && (currNode.next.menu != item)){
-    currNode = currNode.next;
-  }
-  return currNode;
-}
-/**
- * 删除节点
- */
-function remove(item){
-  var prevNode = this.findPrevious(item);
-  if (!(prevNode.next == null)){
-    prevNode.next = prevNode.next.next
-  }
-}
-
 var markDown = {
   /**
    * 获取目录
    * @param  {[str]} buffStr [读取的文件字符串]
-   * @param  {[number]} deepin  [取出目录深度]
+   * @param  {[function]} callback  [回调函数]
    * @return {[obj]}         [目录对象]
    */
-  getMenu : function(buffStr,deepin){
+  getMenu : function(buffStr,callback){
     //分行存入数组
-    var arr = buffStr.split('\r');
-    //创建空数组,用来储存目录对象,index 为目录层级
-    var menu = [],index = 0;
+    var html=buffStr,arr = html.split('\n');
+    //console.log(arr);
+    //before用来储存原始数组，创建空数组,用来储存目录对象,index 为目录层级
+    var before = [],menu = [],index = 1;
     for(var key in arr){
-       arr[key].match(/^(#{1,6})[\s]?([^#\s]+)/)
+      var title = arr[key].match(/^(\<h[1-6]\>[\s\S][^<\/]*\<\/h[1-6]\>)/g);
+      if(title != null){
+        before.push(title[0]);
+      }
     }
-    //console.log(d2);
-    return menu;
+    //console.log(before);
+    for(var key in before){
+      //console.log(before[key])
+      if(before[key].indexOf('h1') != -1){
+        var reId = before[key].replace('h1','h1 id="menu-'+key+'"');
+        html = html.replace(before[key],reId);
+        menu.push(before[key].match(/^\<h[1-6]\>([\s\S][^<\/]*)\<\/h[1-6]\>/)[1])
+      }else if(before[key].indexOf('h2') != -1){
+        var reId = before[key].replace('h2','h2 id="menu-'+key+'"');
+        html = html.replace(before[key],reId);
+        menu.push(before[key].match(/^\<h[1-6]\>([\s\S][^<\/]*)\<\/h[1-6]\>/)[1])
+      }else if(before[key].indexOf('h3') != -1){
+        var reId = before[key].replace('h3','h3 id="menu-'+key+'"');
+        html = html.replace(before[key],reId);
+        menu.push(before[key].match(/^\<h[1-6]\>([\s\S][^<\/]*)\<\/h[1-6]\>/)[1])
+      }else if(before[key].indexOf('h4') != -1){
+        var reId = before[key].replace('h4','h4 id="menu-'+key+'"');
+        html = html.replace(before[key],reId);
+        menu.push(before[key].match(/^\<h[1-6]\>([\s\S][^<\/]*)\<\/h[1-6]\>/)[1])
+      }else if(before[key].indexOf('h5') != -1){
+        var reId = before[key].replace('h5','h5 id="menu-'+key+'"');
+        html = html.replace(before[key],reId);
+        menu.push(before[key].match(/^\<h[1-6]\>([\s\S][^<\/]*)\<\/h[1-6]\>/)[1])
+      }else if(before[key].indexOf('h6') != -1){
+        var reId = before[key].replace('h6','h6 id="menu-'+key+'"');
+        html = html.replace(before[key],reId);
+        menu.push(before[key].match(/^\<h[1-6]\>([\s\S][^<\/]*)\<\/h[1-6]\>/)[1])
+      }
+    }
+    callback(html,menu);
   }
 }
 module.exports = markDown;
