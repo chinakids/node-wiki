@@ -9,6 +9,7 @@ $(function(){
     var top = $(window).scrollTop();
     $('.fix-menu').animate({'top':parseInt(boxtop)+parseInt(top)-100},300)
   }
+  setMenu();
   $(window).scroll(function(){
     clearTimeout(time);
     time = setTimeout(function(){
