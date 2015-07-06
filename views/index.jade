@@ -9,4 +9,6 @@ block content
     ul.clearfix
       each item in menu
         li 
-          a(href="javascript:;",data-href="#menu-#{$index}",name="menu") #{item}
+          a(href="javascript:;",data-href="#menu-#{$index}",name="menu") 
+            i.fa.fa-circle-o 
+            | #{item}

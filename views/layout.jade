@@ -71,7 +71,7 @@ html
                     ul.treeview-menu
                       each item2 in item.subNodes
                         li
-                          a(href='#',title='#{item2,pathName}')
+                          a(href='#',title='#{item2.pathName}')
                             i.fa.fa-circle-o  
                             |  #{item2.pathName}
                             i.fa.fa-angle-left.pull-right 

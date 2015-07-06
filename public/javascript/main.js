@@ -30,5 +30,13 @@ $(function(){
     $(this).next().slideToggle(300);
   })
   //侧目录初始化
-  $('.sidebar-menu').find('.treeview').eq(0).addClass('active');
+  if(window.location.href.indexOf('/doc?') != -1){
+    var qs = location.search.split('?')[1].split('=')[1].split('/'),
+        length = qs.length;
+    for(var key=0;key<length;key++){
+      $('a[title='+decodeURI(qs[key])+']').parent('li').addClass('active');
+    }
+    //$('.sidebar-menu').find('.treeview').eq(0).addClass('active');
+  }
+
 })
