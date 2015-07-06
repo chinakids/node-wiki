@@ -62,53 +62,40 @@ html
                     i.fa.fa-search
             ul.sidebar-menu
               li.header Markdown 文档
-              li.treeview.active
-                a(href='#')
-                  i.fa.fa-book
-                  span &#x524D;&#x7AEF;&#x5F00;&#x53D1;&#x6587;&#x6863;
-                  i.fa.fa-angle-left.pull-right
-                ul.treeview-menu
-                  li
-                    a(href='#')
-                      i.fa.fa-circle-o  
-                      |  &#x7528;&#x6237;&#x754C;&#x9762;&#x8BBE;&#x8BA1;       
-                  li
-                    a(href='#')
-                      i.fa.fa-circle-o  
-                      |  &#x7F16;&#x7801;&#x89C4;&#x8303; 
-                      i.fa.fa-angle-left.pull-right           
+                each item in tree.subNodes
+                  li.treeview
+                    a(href='#',title='#{item.pathName}')
+                      i.fa.fa-server
+                      span #{item.pathName}
+                      i.fa.fa-angle-left.pull-right
                     ul.treeview-menu
-                      li
-                        a(href='#')
-                          i.fa.fa-circle-o  
-                          |  JS &#x7F16;&#x7801;&#x89C4;&#x8303;                 
-                      li
-                        a(href='#')
-                          i.fa.fa-circle-o  
-                          |  CSS &#x7F16;&#x7801;&#x89C4;&#x8303; 
-                          i.fa.fa-angle-left.pull-right           
-                        ul.treeview-menu
-                          li
-                            a(href='#')
-                              i.fa.fa-circle-o  
-                              |  Less &#x7F16;&#x7801;&#x89C4;&#x8303;                    
-                          li
-                            a(href='#')
-                              i.fa.fa-circle-o  
-                              |  Sass &#x7F16;&#x7801;&#x89C4;&#x8303;
-                  li
-                    a(href='#')
-                      i.fa.fa-circle-o  
-                      |  &#x81EA;&#x52A8;&#x6784;&#x5EFA;&#x5DE5;&#x5177;
+                      each item2 in item.subNodes
+                        li
+                          a(href='#',title='#{item2,pathName}')
+                            i.fa.fa-circle-o  
+                            |  #{item2.pathName}
+                            i.fa.fa-angle-left.pull-right 
+                          ul.treeview-menu
+                            each item3 in item2.files
+                              li
+                                a(href='./doc?md=#{item.pathName}/#{item2.pathName}/#{item3}',title='#{item3}')
+                                  i.fa.fa-book  
+                                  |  #{item3}
+                      each item2 in item.files
+                        li
+                          a(href='./doc?md=#{item.pathName}/#{item2}',title='#{item2}')
+                            i.fa.fa-book  
+                            |  #{item2}
         .content-wrapper
           section.content-header
-            h1 &#x524D;&#x7AEF;&#x7F16;&#x7801;&#x89C4;&#x8303;         
+            h1 #{title}         
             ol.breadcrumb
               li
                 a(href='/')
                   i.fa.fa-dashboard 
-                  |  主页          
-              li.active PHP&#x5F00;&#x53D1;&#x6587;&#x6863;
+                  |  主页      
+              each item in map
+                li.active #{item}
           section.content
             div.row
               div.col-xs-12

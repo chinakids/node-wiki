@@ -29,4 +29,6 @@ $(function(){
   $('.fix-menu .title').click(function(){
     $(this).next().slideToggle(300);
   })
+  //侧目录初始化
+  $('.sidebar-menu').find('.treeview').eq(0).addClass('active');
 })

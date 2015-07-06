@@ -7,7 +7,11 @@ var markDown = {
    */
   getMenu : function(buffStr,callback){
     //分行存入数组
-    var html=buffStr,arr = html.split('\n');
+    var html=buffStr,regex = /(<h[1-6])[^>]*?>/ig;
+    html = html.replace(regex, "$1>");
+
+    var arr = html.split('\n');
+
     //console.log(arr);
     //before用来储存原始数组，创建空数组,用来储存目录对象,index 为目录层级
     var before = [],menu = [],index = 1;
