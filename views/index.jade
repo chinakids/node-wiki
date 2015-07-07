@@ -7,8 +7,14 @@ block content
     div.title 文档目录
       i.fa.fa-list-ul.pull-right
     ul.clearfix
-      each item in menu
-        li 
-          a(href="javascript:;",data-href="#menu-#{$index}",name="menu") 
+      if menu.length > 0  
+        each item in menu
+          li 
+            a(href="javascript:;",data-href="#menu-#{$index}",name="menu") 
+              i.fa.fa-tag 
+              | #{item}
+      else
+        li
+          a(href="javascript:;")
             i.fa.fa-circle-o 
-            | #{item}
+            | 暂无目录

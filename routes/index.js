@@ -19,21 +19,16 @@ function walk(path, treeNode){
   treeNode.pathName = path.split('/')[path.split('/').length - 1];
   var dirList = fs.readdirSync(path);
   dirList.forEach(function(item){
-    //console.log(item);
     if(fs.statSync(path + '/' + item).isDirectory()){
-      //console.log(0);
-      //console.log(path+'/'+item)
       var subNode = {};
       treeNode.subNodes.push(subNode);
       walk(path + '/' + item, subNode);
     }else{
-      //console.log(path+'/'+item)
       if(item != '.DS_Store' && item != 'readme.md' && item.indexOf('.md') != -1){
         treeNode.files.push(item.split('.')[0]);
       }
     }
   });
-  console.log(treeNode);
 }
 walk(path.join(__dirname, '../doc'), treeNode);
 /* GET home page. */
