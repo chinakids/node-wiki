@@ -7,6 +7,8 @@ var path = require('path');
 var mdtools = require('../tools/markDown.js');
 var markdown = require('marked');
 var _ = require('underscore');
+//初始化 marked 参数
+
 
 var treeNode={};
 //目录遍历
