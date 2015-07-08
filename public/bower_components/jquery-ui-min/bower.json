@@ -1,0 +1,23 @@
+{
+  "name": "jquery-ui-min",
+  "version": "1.11.4",
+  "homepage": "https://github.com/tylerlong/jquery-ui-min",
+  "authors": [
+    "Tyler Long <tyler4long@gmail.com>"
+  ],
+  "description": "jquery-ui.min.js",
+  "main": "jquery-ui.min.js",
+  "keywords": [
+    "jquery-ui"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "README.md",
+    "fabfile.py"
+  ]
+}

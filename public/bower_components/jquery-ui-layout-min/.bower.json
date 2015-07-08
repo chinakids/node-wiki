@@ -1,0 +1,33 @@
+{
+  "name": "jquery-ui-layout-min",
+  "version": "1.4.3",
+  "homepage": "https://github.com/tylerlong/jquery-ui-layout-min",
+  "authors": [
+    "Tyler Long <tyler4long@gmail.com>"
+  ],
+  "description": "jQuery UI Layout minimized built files.",
+  "main": "jquery.layout.min.js",
+  "keywords": [
+    "jquery",
+    "layout"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "README.md",
+    "fabfile.py"
+  ],
+  "_release": "1.4.3",
+  "_resolution": {
+    "type": "version",
+    "tag": "v1.4.3",
+    "commit": "7d0bc1d02632e97b94229377ed684810237bb4f0"
+  },
+  "_source": "git://github.com/tylerlong/jquery-ui-layout-min.git",
+  "_target": "*",
+  "_originalSource": "jquery-ui-layout-min"
+}

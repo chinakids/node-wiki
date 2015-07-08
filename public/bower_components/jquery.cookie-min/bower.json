@@ -1,0 +1,24 @@
+{
+  "name": "jquery.cookie-min",
+  "version": "1.4.1",
+  "homepage": "https://github.com/tylerlong/jquery.cookie-min",
+  "authors": [
+    "Tyler Long <tyler4long@gmail.com>"
+  ],
+  "description": "jquery.cookie minimized",
+  "main": "jquery.cookie.js",
+  "keywords": [
+    "jquery",
+    "cookie"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "README.md",
+    "fabfile.py"
+  ]
+}

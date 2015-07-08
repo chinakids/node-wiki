@@ -1,0 +1,26 @@
+{
+  "name": "markedown",
+  "main": "markedown.min.js",
+  "version": "0.3.3",
+  "homepage": "https://github.com/tylingsoft/markedown",
+  "authors": [
+    "Tyler Long <tyler4long@gmail.com>"
+  ],
+  "description": "Markdown parser based on marked, added some source map feature.",
+  "keywords": [
+    "markdown",
+    "parser",
+    "marked"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "README.md",
+    "fabfile.py",
+    "markedown.js"
+  ]
+}

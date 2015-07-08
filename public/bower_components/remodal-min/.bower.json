@@ -1,0 +1,31 @@
+{
+  "name": "remodal-min",
+  "version": "0.6.3",
+  "authors": [
+    "Tyler Long <tyler4long@gmail.com>"
+  ],
+  "description": "VodkaBears/Remodal minimized.",
+  "main": "jquery.remodal.min.js",
+  "keywords": [
+    "remodal"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/tylerlong/remodal-min",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "README.md"
+  ],
+  "_release": "0.6.3",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.6.3",
+    "commit": "28f3e940bcd619d9e5a65fc0fd5326ad8c934560"
+  },
+  "_source": "git://github.com/tylerlong/remodal-min.git",
+  "_target": "*",
+  "_originalSource": "remodal-min"
+}

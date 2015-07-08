@@ -1,0 +1,24 @@
+{
+  "name": "font-awesome-min",
+  "version": "4.3.0",
+  "homepage": "https://github.com/tylerlong/font-awesome-min",
+  "authors": [
+    "Tyler Long <tyler4long@gmail.com>"
+  ],
+  "description": "Font Awesome Minimal.",
+  "main": "./css/font-awesome.min.css",
+  "keywords": [
+    "font",
+    "awesome"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "README.md",
+    "fabfile.py"
+  ]
+}

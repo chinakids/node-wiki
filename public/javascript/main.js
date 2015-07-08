@@ -1,8 +1,47 @@
 $(function() {
   //初始化高亮
-  $('pre code').each(function(i, block) {
-    hljs.highlightBlock(block);
+  var modelist = ace.require('ace/ext/modelist').modesByName;
+  var highlight = ace.require('ace/ext/static_highlight');
+  $('pre > code').each(function() { // code highlight
+    var code = $(this);
+    var language = (code.attr('class') || 'lang-javascript').substring(
+      5).toLowerCase();
+    if (modelist[language] == undefined) {
+      language = 'javascript';
+    }
+    highlight(code[0], {
+        mode: 'ace/mode/' + language,
+        theme: 'ace/theme/github',
+        startLineNumber: 1,
+        showGutter: false,
+        trim: true,
+      },
+      function(highlighted) {}
+    );
   });
+  //图例支持初始化
+  mermaid.ganttConfig = { // Configuration for Gantt diagrams
+    numberSectionStyles: 4,
+    axisFormatter: [
+      ["%I:%M", function(d) { // Within a day
+        return d.getHours();
+      }],
+      ["w. %U", function(d) { // Monday a week
+        return d.getDay() == 1;
+      }],
+      ["%a %d", function(d) { // Day within a week (not monday)
+        return d.getDay() && d.getDate() != 1;
+      }],
+      ["%b %d", function(d) { // within a month
+        return d.getDate() != 1;
+      }],
+      ["%m-%y", function(d) { // Month
+        return d.getMonth();
+      }]
+    ]
+  };
+  mermaid.init();
+
   //菜单滚动
   var boxtop = $('.fix-menu').css('top'),
     time;
