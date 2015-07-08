@@ -81,12 +81,12 @@ html
                           ul.treeview-menu
                             each item3 in item2.files
                               li
-                                a(href='./doc?md=#{item.pathName}/#{item2.pathName}/#{item3}',title='#{item3}')
+                                a(href='./book?md=#{item.pathName}/#{item2.pathName}/#{item3}',title='#{item3}')
                                   i.fa.fa-book  
                                   |  #{item3}
                       each item2 in item.files
                         li
-                          a(href='./doc?md=#{item.pathName}/#{item2}',title='#{item2}')
+                          a(href='./book?md=#{item.pathName}/#{item2}',title='#{item2}')
                             i.fa.fa-book  
                             |  #{item2}
         .content-wrapper
