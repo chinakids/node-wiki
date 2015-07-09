@@ -1,0 +1,201 @@
+body{
+  margin: 0;
+  padding: 0;
+}
+svg{
+  max-width: 48em;
+}
+
+pre{
+  background: #1a2226;
+  color: #999;
+  .ace-github{
+    background: #f7f7f7;
+  }
+}
+.sidebar-menu .treeview-menu > li > a {
+  padding-right: 28px;
+  display:block;
+  word-break:keep-all;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.fix-menu{
+  position: absolute;
+  top: 100px;
+  right:16px;
+  width: 250px;
+  height: auto;
+  background: #2c3b41;
+  .title{
+    background: #1e282c;
+    border-left:3px solid #3c8dbc;
+    color:#fff;
+    padding: 12px 15px;
+    cursor: pointer;
+    i{
+      position: relative;
+      top: 4px;
+    }
+  }
+  ul{
+    display: none;
+    padding:10px 0;
+    margin: 0;
+    height: auto;
+    max-height: 500px;
+    overflow-y: auto;
+  }
+  li{
+    padding:0 15px 0 15px;
+    line-height: 20px;
+    margin-bottom: 10px;
+    list-style: none;
+    a{
+      color:#fff;
+      display: inline-block;
+    }
+    i{
+      margin-right: 10px;
+    }
+  }
+}
+.app-only {
+  display: none;
+}
+.guest-only {
+  display: none;
+}
+.ui-layout-pane {
+  border-width: 0;
+  padding: 0;
+  margin: 0;
+}
+.ui-layout-north {
+  background-color: #eeeeee;
+}
+
+#editor {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.markdown-body {
+  min-width: 16em;
+  max-width: 110em;
+  margin: 0 auto;
+  padding: 2em;
+}
+#toolbar {
+  padding-left: 16px;
+  color: #666666;
+}
+#toolbar{
+  .fa {
+    padding: 2px;
+    border: 1px solid transparent;
+    &:hover{
+      background-color: #dddddd;
+      border-color: #cccccc;
+      cursor: pointer;
+    }
+  }
+  .icon {
+    padding: 0 2px;
+    border: 1px solid transparent;
+    &:hover{
+      background-color: #dddddd;
+      border-color: #cccccc;
+      cursor: pointer;
+    }
+  }
+}
+.ui-layout-toggler {
+  background-color: #cccccc;
+}
+.ui-layout-toggler{
+  &:hover{
+    background-color: #add8e6;
+  }
+}
+.heading-icon {
+  font-weight: bold;
+}
+i.dividor {
+  font-style: normal;
+  color: #dddddd;
+  margin: 0 6px;
+}
+.noselect {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+/* source code highlight */
+.markdown-body{
+  .ace-github {
+    background-color: #f7f7f7 !important;
+    .ace_static_highlight {
+      font-size: 13.6px !important;
+      font-family: Consolas, 'Liberation Mono', Menlo, Courier, monospace !important;
+    }
+    .ace_gutter {
+      color: rgba(0,0,0,0.3) !important;
+      margin-right: 16px !important;
+      background-color: #f7f7f7 !important;
+    }
+    .ace_keyword,
+    .ace_modifier {
+      color: #a71d5d !important;
+      font-weight: normal !important;
+    }
+    .ace_string {
+      color: #183691 !important;
+    }
+    .ace_tag-name,
+    .ace_constant {
+      color: #63a35c !important;
+    }
+    .ace_attribute-name,
+    .ace_variable {
+      color: #795da3 !important;
+    }
+    .ace_comment {
+      color: #969896 !important;
+      font-style: normal !important;
+    }
+    .ace_numeric,
+    .ace_type {
+      color: #0086b3 !important;
+    }
+  }
+}
+.remodal-overlay {
+  background: rgba(33, 36, 46, 0.6) !important;
+}
+div.mermaid {
+  text-align: center;
+}
+
+/*************************/
+/* below is for printing */
+/*************************/
+
+@media print {
+  .ui-layout-pane-north,
+  .ui-layout-pane-center .ui-layout-resizer,
+  .ui-layout-toggler {
+    display: none !important;
+  }
+  table, pre, blockquote, div.mermaid {
+    page-break-inside: avoid;
+  }
+  .markdown-body { /* 打印不需要 scroll past end， 省纸 */
+    padding-bottom: 0 !important;
+  }
+}
