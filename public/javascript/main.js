@@ -75,15 +75,65 @@ $(function() {
       $(this).next().slideToggle(300);
     })
     //侧目录初始化
-  if (window.location.href.indexOf('/doc?') != -1) {
+  if (window.location.href.indexOf('/book?') != -1) {
     var qs = location.search.split('?')[1].split('=')[1].split('/'),
       length = qs.length;
     for (var key = 0; key < length; key++) {
-      $('a[title=' + decodeURI(qs[key]) + ']').parent('li').addClass(
+      $('a[title="' + decodeURI(qs[key]) + '"]').addClass('active');
+      $('a[title="' + decodeURI(qs[key]) + '"]').parent('li').addClass(
         'active');
     }
   } else {
     $('.sidebar-menu').find('.treeview').eq(0).addClass('active');
   }
+  //滚动控件
+  console.log($(".fix-menu ul").height())
+  if ($(".fix-menu ul").height() >= 500) {
+    $(".fix-menu ul").slimScroll({
+      height: '500px',
+      alwaysVisible: true,
+    });
+  }
 
+  //返回顶部
+  var slideToTop = $("<div />");
+  slideToTop.html('<i class="fa fa-chevron-up"></i>');
+  slideToTop.css({
+    'position': 'fixed',
+    'bottom': '20px',
+    'right': '25px',
+    'width': '40px',
+    'height': '40px',
+    'color': '#eee',
+    'font-size': '',
+    'line-height': '40px',
+    'text-align': 'center',
+    'background-color': '#222d32',
+    'cursor': 'pointer',
+    'border-radius': '5px',
+    'z-index': '99999',
+    'opacity': '.7',
+    'display': 'none'
+  });
+  slideToTop.on('mouseenter', function() {
+    $(this).css('opacity', '1');
+  });
+  slideToTop.on('mouseout', function() {
+    $(this).css('opacity', '.7');
+  });
+  $('.wrapper').append(slideToTop);
+  $(window).scroll(function() {
+    if ($(window).scrollTop() >= 150) {
+      if (!$(slideToTop).is(':visible')) {
+        $(slideToTop).fadeIn(500);
+      }
+    } else {
+      $(slideToTop).fadeOut(500);
+    }
+  });
+  $(slideToTop).click(function() {
+    $("body").animate({
+      scrollTop: 0
+    }, 500);
+  });
 })

@@ -41,6 +41,7 @@ renderer.codespan = function(text) { // inline code
 }
 renderer.code = function(code, language, escaped, line_number) {
   //console.log('/////////////code')
+  console.log(line_number)
   code = code.trim();
   var firstLine = code.split(/\n/)[0].trim();
   if (language === 'math') { // 数学公式

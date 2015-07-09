@@ -3,6 +3,16 @@ extends layout
 block content
   div.markdown-body
     !{html}
+  div.row
+    div.col-sm-12
+      div#pr.box.box-primary
+        div.box-header.with-border
+          h3.box-title #{title} - 贡献者名单
+          a.btn.btn-primary.btn-xs.pull-right(href="http://almsaeedstudio.com/download/AdminLTE-dist")
+            i.fa.fa-download  下载此文档 
+        div.box-body
+          a.btn.btn-primary.btn-sm(href="javascript:;") 
+            i.fa.fa-code-fork  彭宇杰
   div.fix-menu
     div.title 文档目录
       i.fa.fa-list-ul.pull-right
@@ -18,3 +28,7 @@ block content
           a(href="javascript:;")
             i.fa.fa-circle-o 
             | 暂无目录
+      li
+        a(href="javascript:;",data-href="#pr",name="menu")
+          i.fa.fa-star 
+          | 贡献者      

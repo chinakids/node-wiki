@@ -40,11 +40,9 @@ pre{
     }
   }
   ul{
-    display: none;
     padding:10px 0;
     margin: 0;
     height: auto;
-    max-height: 500px;
     overflow-y: auto;
   }
   li{
@@ -81,18 +79,9 @@ pre{
   width: 100%;
   height: 100%;
 }
-
-.markdown-body {
-  min-width: 16em;
-  max-width: 110em;
-  margin: 0 auto;
-  padding: 2em;
-}
-#toolbar {
+#toolbar{
   padding-left: 16px;
   color: #666666;
-}
-#toolbar{
   .fa {
     padding: 2px;
     border: 1px solid transparent;
@@ -138,6 +127,10 @@ i.dividor {
 }
 /* source code highlight */
 .markdown-body{
+  min-width: 16em;
+  max-width: 110em;
+  margin: 0 auto;
+  padding:0 2em;
   .ace-github {
     background-color: #f7f7f7 !important;
     .ace_static_highlight {
