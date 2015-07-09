@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 
-
 var fs = require('fs');
 var path = require('path');
 var mdtools = require('../tools/markDown.js');
