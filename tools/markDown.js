@@ -1,3 +1,101 @@
+var markdown = require('marked');
+var mermaid = require('mermaid');
+var katex = require('katex');
+var domino = require('domino');
+var Zepto = require('zepto-node');
+
+var window = domino.createWindow();
+
+var $ = Zepto(window);
+
+//初始化 marked 参数
+var renderer = new markdown.Renderer();
+renderer.listitem = function(text) {
+  //console.log(text);
+  if (!/^\[[ x]\]\s/.test(text)) {
+    return markdown.Renderer.prototype.listitem(text);
+  }
+  // 任务列表
+  var checkbox = $('<input type="checkbox" disabled/>');
+  if (/^\[x\]\s/.test(text)) { // 完成的任务列表
+    checkbox.attr('checked', true);
+  }
+  return $(markdown.Renderer.prototype.listitem(text.substring(3))).addClass(
+    'task-list-item').prepend(checkbox)[0].outerHTML;
+}
+renderer.codespan = function(text) { // inline code
+  //console.log('/////////////codespan')
+  if (/^\$.+\$$/.test(text)) { // inline math
+    var raw = /^\$(.+)\$$/.exec(text)[1];
+    var line = raw.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(
+      /&amp;/g, '&').replace(/&quot;/g, '"').replace(/&#39;/g, "'"); // unescape html characters
+    try {
+      return katex.renderToString(line, {
+        displayMode: false
+      });
+    } catch (err) {
+      return '<code>' + err + '</code>';
+    }
+  }
+  return markdown.Renderer.prototype.codespan.apply(this, arguments);
+}
+renderer.code = function(code, language, escaped, line_number) {
+  //console.log('/////////////code')
+  code = code.trim();
+  var firstLine = code.split(/\n/)[0].trim();
+  if (language === 'math') { // 数学公式
+    var tex = '';
+    code.split(/\n\n/).forEach(function(line) {
+      line = line.trim();
+      if (line.length > 0) {
+        try {
+          tex += katex.renderToString(line, {
+            displayMode: true
+          });
+        } catch (err) {
+          tex += '<pre>' + err + '</pre>';
+        }
+      }
+    });
+    return '<div data-line="' + line_number + '">' + tex + '</div>';
+  } else if (firstLine === 'gantt' || firstLine === 'sequenceDiagram' ||
+    firstLine.match(/^graph (?:TB|BT|RL|LR|TD);?$/)) {
+    if (firstLine === 'sequenceDiagram') {
+      code += '\n'; // 如果末尾没有空行，则语法错误
+    }
+    if (mermaid.mermaidAPI.parse(code)) {
+      return '<div class="mermaid" data-line="' + line_number + '">' + code +
+        '</div>';
+    } else {
+      return '<pre data-line="' + line_number + '">' + mermaidError +
+        '</pre>';
+    }
+  } else {
+    return markdown.Renderer.prototype.code.apply(this, arguments);
+  }
+};
+renderer.html = function(html) {
+  var result = markdown.Renderer.prototype.html.apply(this, arguments);
+  var h = $(result.bold());
+  return h.html();
+};
+renderer.paragraph = function(text) {
+  var result = markdown.Renderer.prototype.paragraph.apply(this, arguments);
+  var h = $(result.bold());
+  return h.html();
+};
+markdown.setOptions({
+  renderer: renderer,
+  gfm: true,
+  tables: true,
+  breaks: false,
+  pedantic: false,
+  sanitize: false,
+  smartLists: true,
+  smartypants: true
+});
+
+
 var markDown = {
   /**
    * 获取目录
@@ -12,7 +110,6 @@ var markDown = {
     html = html.replace(regex, "$1>");
     var arr = html.split('\n');
 
-    //console.log(arr);
     //before用来储存原始数组，创建空数组,用来储存目录对象,index 为目录层级
     var before = [],
       menu = [],
@@ -59,6 +156,15 @@ var markDown = {
       }
     }
     callback(html, menu);
+  },
+  /**
+   * markdown 转 html
+   * @param  {[type]}   buffStr  [传入的 markdown 文档]
+   * @param  {Function} callback [description]
+   */
+  toHtml: function(buffStr, callback) {
+    var html = markdown(buffStr);
+    this.getMenu(html, callback)
   }
 }
 module.exports = markDown;
