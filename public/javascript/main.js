@@ -72,9 +72,14 @@ $(function() {
   });
   //目录展开
   $('.fix-menu .title').click(function() {
-      $(this).next().slideToggle(300);
-    })
-    //侧目录初始化
+    $(this).next().slideToggle(300);
+  })
+
+  setTimeout(function() {
+    $('.fix-menu .title').trigger('click')
+  }, 300)
+
+  //侧目录初始化
   if (window.location.href.indexOf('/book?') != -1) {
     var qs = location.search.split('?')[1].split('=')[1].split('/'),
       length = qs.length;
