@@ -7,14 +7,22 @@ block content
         h3.box-title
     div.box-body.markdown-body
       !{html}
+    div.callout.callout-info.tools-bar
+      h4 
+        i.fa.fa-paperclip
+        |  文档工具栏
+      a(href="javascript:;")
+        i.fa.fa-edit
+        |  编辑此文档
+      a(href="./download?md=#{download}",target='_blank')
+        i.fa.fa-download  
+        |  下载此文档 
   div.row
     if title != 'Wiki 文档中心'
       div.col-sm-12
         div#pr.box.box-primary
           div.box-header.with-border
             h3.box-title #{title} - 贡献者名单
-            a.btn.btn-primary.btn-xs.pull-right(href="./download?md=#{download}",target='_blank')
-              i.fa.fa-download  下载此文档 
           div.box-body
             a.btn.btn-primary.btn-sm(href="javascript:;") 
               i.fa.fa-code-fork  chinakids
