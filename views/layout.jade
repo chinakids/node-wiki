@@ -18,21 +18,36 @@ block layout
             .navbar-custom-menu
               ul.nav.navbar-nav
                 li.dropdown.user.user-menu
-                  a.dropdown-toggle(href='#', data-toggle='dropdown')
-                    img.user-image(src='/theme/img/user2-160x160.jpg', alt='User Image')
-                    span.hidden-xs 彭宇杰
-                  ul.dropdown-menu
-                    li.user-header
-                      img.img-circle(src='/theme/img/user2-160x160.jpg', alt='User Image')
-                      p Alexander Pierce - Web Developer
-                        small Member since Nov. 2012
-                    li.user-footer
-                      .pull-left
-                        a.btn.btn-default.btn-flat(href='#')
-                          i.fa.fa-gears  设置                 
-                      .pull-right
-                        a.btn.btn-default.btn-flat(href='./users/logout')
-                          i.fa.fa-sign-out  退出
+                  if loginInfo != false
+                    a.dropdown-toggle(href='#', data-toggle='dropdown')
+                      img.user-image(src='/theme/img/user2-160x160.jpg', alt='User Image')
+                      span.hidden-xs #{loginInfo.userName}
+                    ul.dropdown-menu
+                      li.user-header
+                        img.img-circle(src='/theme/img/user2-160x160.jpg', alt='User Image')
+                        if loginInfo.role == 0
+                          p #{loginInfo.userName} - 开发人员
+                            small #{loginInfo.email}
+                        if loginInfo.role == 1
+                          p #{loginInfo.userName} - 产品经理
+                            small #{loginInfo.email}
+                        if loginInfo.role == 2
+                          p #{loginInfo.userName} - 测试人员
+                            small #{loginInfo.email}
+                        if loginInfo.role == 3
+                          p #{loginInfo.userName} - 项目管理
+                            small #{loginInfo.email}
+                      li.user-footer
+                        .pull-left
+                          a.btn.btn-default.btn-flat(href='#')
+                            i.fa.fa-gears  设置                 
+                        .pull-right
+                          a.btn.btn-default.btn-flat(href='./users/logout')
+                            i.fa.fa-sign-out  退出
+                  else
+                    a.dropdown-toggle(href='./users/login')
+                      img.user-image(src='/theme/img/user2-160x160.jpg', alt='User Image')
+                      span.hidden-xs 登陆 / 注册
         aside.main-sidebar
           section.sidebar
             form.sidebar-form(action='#', method='get')

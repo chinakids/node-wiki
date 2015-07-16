@@ -15,7 +15,8 @@ router.get('/', function(req, res, next) {
       html: html,
       menu: menu,
       tree: req.tree,
-      map: []
+      map: [],
+      loginInfo:req.loginInfo
     });
   });
 });
@@ -32,7 +33,8 @@ router.get('/book', function(req, res, next) {
       html: html,
       menu: menu,
       tree: req.tree,
-      map: md.split('/')
+      map: md.split('/'),
+      loginInfo:req.loginInfo
     });
   });
 });
