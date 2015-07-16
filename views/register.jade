@@ -4,28 +4,36 @@ block layout
   body.login-page
     .login-box
       .login-logo
-        a(href='../../index2.html')
+        a(href='../')
           b Wiki
           | 用户中心
       .login-box-body
         p.login-box-msg 请输入相关信息完成注册
-        form
+        form#register
           .form-group.has-feedback
-            input.form-control(type='text', placeholder='姓名')   
+            input.form-control(type='text',name='name',placeholder='姓名')   
             span.glyphicon.glyphicon-user.form-control-feedback
           .form-group.has-feedback
-            input.form-control(type='email', placeholder='邮箱')
+            input.form-control(type='email',name='email',placeholder='邮箱')
             span.glyphicon.glyphicon-envelope.form-control-feedback
           .form-group.has-feedback
-            input.form-control(type='password', placeholder='密码')
+            input.form-control(type='password',name='password',placeholder='密码')
             span.glyphicon.glyphicon-lock.form-control-feedback
           .form-group.has-feedback
-            input.form-control(type='password', placeholder='再次输入密码')
+            input.form-control(type='password',name='repassword',placeholder='再次输入密码')
             span.glyphicon.glyphicon-log-in.form-control-feedback
+          .form-group
+            select.form-control(name='role')
+              option(value='-1') 请选择用户角色
+              option(value='0') 开发人员
+              option(value='2') 产品经理
+              option(value='3') 测试人员
+              option(value='4') 项目管理
+          .form-group.has-feedback#tip
           .form-group.has-feedback
-            button.btn.btn-primary.btn-block.btn-flat(type='button')  注 册
+            button.btn.btn-primary.btn-block.btn-flat(type='button',name='submit')  注 册
           .row
             .col-xs-12
-              a(href='./register').pull-right 
+              a(href='./login').pull-right 
                i.glyphicon.glyphicon-retweet  
                |  返回登陆

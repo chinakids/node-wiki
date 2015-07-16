@@ -33,19 +33,19 @@ router.get('/login', function(req, res, next) {
 });
 router.post('/login', function(req, res, next) {
   /* 查询用户名并验证密码 */
-  usermodel.findByName(req.body.username,function(err,user){
+  usermodel.findByEmail(req.body.email,function(err,user){
     if(err){
       console.log(err);
     }
-    console.log(user);
+    //console.log(user);
     if(user.length<=0){
       res.status(200).send({status:0,info:'帐号或密码错误'});
     }else{
       if(rule.md5(req.body.password) == user[0].passWord){
         /* 设置登陆的cookie */
-        res.cookie('name', user[0].name , { maxAge: 60 * 1000 * 60 * 24 * 30 });
-        res.cookie('name_sig', rule.md5(user[0].name+'this_is_mixin_string'+req.cookies['connect.id']) , { maxAge: 60 * 1000 * 60 * 24 * 30 });
-        res.status(200).send({status:1,data:{name:user[0].name}});
+        res.cookie('name', user[0].userName , { maxAge: 60 * 1000 * 60 * 24 * 30 });
+        res.cookie('name_sig', rule.md5(user[0].userName+'this_is_mixin_string'+req.cookies['connect.id']) , { maxAge: 60 * 1000 * 60 * 24 * 30 });
+        res.status(200).send({status:1,info:'登录成功',data:{name:user[0].userName}});
       }else{
         res.status(200).send({status:0,info:'帐号或密码错误'});
       }
@@ -67,16 +67,17 @@ router.post('/register', function(req, res, next) {
   var _user;
   userObj.password = rule.md5(userObj.password);
   /* 存入数据,先判断是否存在用户 */
-  usermodel.findByName(userObj.username,function(err,user){
+  usermodel.findByEmail(userObj.email,function(err,user){
     if(err){
       console.log(err);
     }
     /* 判断用户是否存在 */
     if(user.length<=0){
       _user = new usermodel({
-        userName   : userObj.username,
+        userName   : userObj.name,
         passWord   : userObj.password,
-        name       : userObj.username
+        email      : userObj.email,
+        role       : userObj.role
       })
       _user.save(function(err, user){
         if(err){
@@ -85,7 +86,7 @@ router.post('/register', function(req, res, next) {
         res.send({status:1,info:'注册成功'});
       })
     }else{
-      res.send({status:0,info:'此帐号已存在或者存在重名帐号'});
+      res.send({status:0,info:'邮箱已被注册'});
     }
   })
 });

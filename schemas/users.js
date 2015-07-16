@@ -6,7 +6,8 @@ var mongoose = require('mongoose');
 var UserSchema = new mongoose.Schema({
   userName   : String,
   passWord   : String,
-  name       : String,
+  email      : String,
+  role       : String,
   meta       : {
     createAt : {
       type      : Date,
@@ -47,10 +48,10 @@ UserSchema.statics = {
       .sort('meta.updateAt')
       .exec(cb);
   },
-  findByName : function(id,cb){
+  findByEmail : function(id,cb){
     //console.log(id);
     return this
-      .find({userName:id})
+      .find({email:id})
       .sort('meta.updateAt')
       .exec(cb);
   }

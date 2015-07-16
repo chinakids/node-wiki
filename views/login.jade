@@ -9,15 +9,16 @@ block layout
           | 用户中心
       .login-box-body
         p.login-box-msg 请输入帐号密码登陆
-        form
+        form#login
           .form-group.has-feedback
-            input.form-control(type='email', placeholder='邮箱')
+            input.form-control(type='email',name='email',placeholder='邮箱')
             span.glyphicon.glyphicon-user.form-control-feedback
           .form-group.has-feedback
-            input.form-control(type='password', placeholder='密码')
+            input.form-control(type='password',name='password',placeholder='密码')
             span.glyphicon.glyphicon-lock.form-control-feedback
+          .form-group.has-feedback#tip
           .form-group.has-feedback
-            button.btn.btn-primary.btn-block.btn-flat(type='button')  登 陆
+            button.btn.btn-primary.btn-block.btn-flat(type='button',name='submit')  登 陆
           .row
             .col-xs-12
               a(href='./register').pull-right 
