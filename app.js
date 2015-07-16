@@ -26,9 +26,6 @@ http.request({
     method: 'GET'
 }, function (res) {
   res.setEncoding('utf8');
-  res.on('data', function (data) {
-      console.log('body: ' + data);
-  });
 }).on('error', function (e) {
   console.log('problem with request: ' + e.message);
 }).end();
