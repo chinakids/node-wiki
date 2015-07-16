@@ -5,7 +5,7 @@ block layout
     body.skin-blue.sidebar-mini
       .wrapper
         header.main-header
-          a.logo(href='#')
+          a.logo(href='./')
             span.logo-mini
               b W
               | iki
@@ -83,7 +83,7 @@ block layout
                             i.fa.fa-book  
                             |  #{item2}
         .content-wrapper
-          if err != undefined
+          if !error 
             section.content-header
               h1 
                 i.fa.fa-book   #{title}.md

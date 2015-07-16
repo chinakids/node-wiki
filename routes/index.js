@@ -16,8 +16,7 @@ router.get('/', function(req, res, next) {
       menu: menu,
       tree: req.tree,
       map: [],
-      loginInfo:req.loginInfo,
-      download:'../doc/readme.md'
+      loginInfo:req.loginInfo
     });
   });
 });
@@ -36,7 +35,7 @@ router.get('/book', function(req, res, next) {
       tree: req.tree,
       map: md.split('/'),
       loginInfo:req.loginInfo,
-      download:'../doc/' + md + '.md'
+      download:req.query.md
     });
   });
 });

@@ -8,15 +8,16 @@ block content
     div.box-body.markdown-body
       !{html}
   div.row
-    div.col-sm-12
-      div#pr.box.box-primary
-        div.box-header.with-border
-          h3.box-title #{title} - 贡献者名单
-          a.btn.btn-primary.btn-xs.pull-right(href="#{download}",target='_blank')
-            i.fa.fa-download  下载此文档 
-        div.box-body
-          a.btn.btn-primary.btn-sm(href="javascript:;") 
-            i.fa.fa-code-fork  chinakids
+    if title != 'Wiki 文档中心'
+      div.col-sm-12
+        div#pr.box.box-primary
+          div.box-header.with-border
+            h3.box-title #{title} - 贡献者名单
+            a.btn.btn-primary.btn-xs.pull-right(href="./download?md=#{download}",target='_blank')
+              i.fa.fa-download  下载此文档 
+          div.box-body
+            a.btn.btn-primary.btn-sm(href="javascript:;") 
+              i.fa.fa-code-fork  chinakids
   div.fix-menu
     div.title 文档目录
       i.fa.fa-list-ul.pull-right
