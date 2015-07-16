@@ -8,9 +8,7 @@ var treeModel = require('../models/tree');
 /* API Route. */
 router.get('/', function(req, res, next) {
   //console.log('///////////////////////////')
-  var buffStr = fs.readFileSync(path.join(__dirname, '../doc/readme.md'),
-    'utf8');
-  res.status(200).send(buffStr);
+  res.status(200).send('api状态正常');
 });
 /* API updataMenu. */
 router.get('/updataMenu', function(req, res, next) {
