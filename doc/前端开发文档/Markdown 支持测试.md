@@ -57,6 +57,17 @@ Function name | Description
 [Emoji Cheat Sheet](http://www.emoji-cheat-sheet.com/)
 
 
+## Art Reactor icons
+
+<i class="ar ar-drumstick" style="font-size: 64px;"></i>
+<i class="ar ar-poached-egg" style="font-size: 64px;"></i>
+<i class="ar ar-hamburger" style="font-size: 64px;"></i>
+<i class="ar ar-juice" style="font-size: 64px;"></i>
+<i class="ar ar-coffee" style="font-size: 64px;"></i>
+<i class="ar ar-strawberry" style="font-size: 64px;"></i>
+
+[All the Art Reactor icons](http://chinakids.github.io/Art-Reactor/dome/index.html)
+
 ## Font Awesome icons
 
 <i class="fa fa-cloud" style="font-size: 64px;"></i>

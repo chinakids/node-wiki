@@ -83,16 +83,17 @@ block layout
                             i.fa.fa-book  
                             |  #{item2}
         .content-wrapper
-          section.content-header
-            h1 
-              i.fa.fa-book   #{title}.md
-            ol.breadcrumb
-              li
-                a(href='/')
-                  i.fa.fa-dashboard 
-                  |  主页      
-              each item in map
-                li.active #{item}
+          if err != undefined
+            section.content-header
+              h1 
+                i.fa.fa-book   #{title}.md
+              ol.breadcrumb
+                li
+                  a(href='/')
+                    i.fa.fa-dashboard 
+                    |  主页      
+                each item in map
+                  li.active #{item}
           section.content
             div.row
               div.col-xs-12

@@ -98,8 +98,11 @@ if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
     res.status(err.status || 500);
     res.render('error', {
-      message: err.message,
-      error: err
+      title: err.message,
+      error: err,
+      map:[],
+      tree: req.tree,
+      loginInfo:req.loginInfo
     });
   });
 }
@@ -109,8 +112,11 @@ if (app.get('env') === 'development') {
 app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error', {
-    message: err.message,
-    error: {}
+    title: err.message,
+    error: {},
+    map:[],
+    tree: req.tree,
+    loginInfo:req.loginInfo
   });
 });
 

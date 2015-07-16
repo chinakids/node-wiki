@@ -32,6 +32,7 @@
     "slimScroll": "~1.3.6",
     "font-awesome": "~4.3.0",
     "ionicons": "~2.0.1",
-    "emoji-icons": "~1.0.0"
+    "emoji-icons": "~1.0.0",
+    "art-reactor": "*"
   }
 }
