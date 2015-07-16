@@ -9,7 +9,7 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var treeModel = require('./models/tree');
 
-var routes = require('./routes/index');
+var index = require('./routes/index');
 var users = require('./routes/users');
 var api = require('./routes/api');
 
@@ -26,8 +26,8 @@ http.request({
     method: 'GET'
 }, function (res) {
   res.setEncoding('utf8');
-  res.on('data', function (chunk) {
-      console.log('BODY: ' + chunk);
+  res.on('data', function (data) {
+      console.log('body: ' + data);
   });
 }).on('error', function (e) {
   console.log('problem with request: ' + e.message);
@@ -59,7 +59,7 @@ app.get(/^\/*/,function(req, res, next){
   })
 });
 
-app.use('/', routes);
+app.use('/', index);
 app.use('/users', users);
 app.use('/api', api);
 
