@@ -17,15 +17,9 @@ router.get('/', function(req, res, next) {
 router.get('/login', function(req, res, next) {
   //console.log('/login')
   //res.redirect('/');
-  var name = req.cookies.name;
-  var connectid = req.cookies['connect.id'];
-  var singename = req.cookies['name_sig'];
-  if(name != undefined){
-    if(rule.pw(name,connectid,singename)){
-      res.redirect('/../');
-    }else{
-      res.render('login', { title: 'logins' });
-    }
+  console.log(req.loginInfo);
+  if(req.loginInfo != false){
+    res.redirect('/../');
   }else{
     res.render('login', { title: 'logins' });
   }
@@ -44,7 +38,8 @@ router.post('/login', function(req, res, next) {
       if(rule.md5(req.body.password) == user[0].passWord){
         /* 设置登陆的cookie */
         res.cookie('name', user[0].userName , { maxAge: 60 * 1000 * 60 * 24 * 30 });
-        res.cookie('name_sig', rule.md5(user[0].userName+'this_is_mixin_string'+req.cookies['connect.id']) , { maxAge: 60 * 1000 * 60 * 24 * 30 });
+        res.cookie('email', user[0].email , { maxAge: 60 * 1000 * 60 * 24 * 30 , httpOnly: true});
+        res.cookie('name_sig', rule.md5(user[0].email+'this_is_mixin_string'+req.cookies['connect.id']) , { maxAge: 60 * 1000 * 60 * 24 * 30 , httpOnly: true});
         res.status(200).send({status:1,info:'登录成功',data:{name:user[0].userName}});
       }else{
         res.status(200).send({status:0,info:'帐号或密码错误'});

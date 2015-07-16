@@ -22,7 +22,7 @@ router.get('/', function(req, res, next) {
 /* GET home page. */
 router.get('/book', function(req, res, next) {
   console.log('/////////')
-  console.log(req.tree);
+  console.log(req.loginInfo);
   var md = req.query.md;
   var buffStr = fs.readFileSync(path.join(__dirname, '../doc/' + md + '.md'),
     'utf8');

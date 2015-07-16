@@ -6,6 +6,9 @@ var rule = {
     var d2 = md5.update(str).digest('hex');
     //console.log(d2);
     return d2;
+  },
+  pw : function(name,sid,singeStr){
+    return this.md5(name+'this_is_mixin_string'+sid) == singeStr ? true : false;
   }
 }
 module.exports = rule;

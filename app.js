@@ -6,8 +6,10 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+var rule = require('./tools/rule');
 var mongoose = require('mongoose');
 var treeModel = require('./models/tree');
+var usermodel = require('./models/users');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -47,13 +49,33 @@ app.use(express.static(path.join(__dirname, 'doc')));
 
 //需要的参数先处理好
 app.get(/^\/*/,function(req, res, next){
-  console.log(1);
+  //读取目录
   treeModel.fetch(function(err,tree){
     if(err){
       console.log(err);
     }
     req.tree = tree[0].tree;
-    next(); // 将控制转向下一个符合URL的路由
+    //判断登陆
+    var email = req.cookies['email']
+    var connectid = req.cookies['connect.id'];
+    var singename = req.cookies['name_sig'];
+    if(rule.pw(email,connectid,singename)){
+      //获取用户信息并传递
+      usermodel.findByEmail(email,function(err,user){
+        if(err){
+          console.log(err);
+        };
+        if(user.length <=0){
+          req.loginInfo = false;
+        }else{
+          req.loginInfo = user[0];
+        }
+        next(); // 将控制转向下一个符合URL的路由
+      });
+    }else{
+      req.loginInfo = false;
+      next(); // 将控制转向下一个符合URL的路由
+    }
   })
 });
 
