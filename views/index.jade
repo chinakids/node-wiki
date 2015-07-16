@@ -1,11 +1,13 @@
 extends layout
 
 block content
-  div.markdown-body
-    !{html}
+  div.box.box-default.color-palette-box
+    //
+      div.box-header.with-border
+        h3.box-title
+    div.box-body.markdown-body
+      !{html}
   div.row
-    br
-    br
     div.col-sm-12
       div#pr.box.box-primary
         div.box-header.with-border
