@@ -19,7 +19,6 @@ router.get('/updataMenu', function(req, res, next) {
     treeNode.path = path;
     treeNode.subNodes = [];
     treeNode.files = [];
-    treeNode.filesMd5 = '';
     treeNode.pathName = path.split('/')[path.split('/').length - 1];
     //console.log(treeNode.pathName);
     var dirList = fs.readdirSync(path);
