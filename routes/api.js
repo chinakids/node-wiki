@@ -65,5 +65,11 @@ router.get('/updataMenu', function(req, res, next) {
     })
   });
 });
+//api search
+router.get('/search', function(req, res, next) {
+  //console.log('///////////////////////////')
+  res.status(200).send('api状态正常');
+});
+
 
 module.exports = router;

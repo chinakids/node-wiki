@@ -1,0 +1,31 @@
+extends common
+
+block layout
+  body.login-page
+    .login-box
+      .login-logo
+        a(href='../../index2.html')
+          b Wiki
+          | 用户中心
+      .login-box-body
+        p.login-box-msg 请输入相关信息完成注册
+        form
+          .form-group.has-feedback
+            input.form-control(type='text', placeholder='姓名')   
+            span.glyphicon.glyphicon-user.form-control-feedback
+          .form-group.has-feedback
+            input.form-control(type='email', placeholder='邮箱')
+            span.glyphicon.glyphicon-envelope.form-control-feedback
+          .form-group.has-feedback
+            input.form-control(type='password', placeholder='密码')
+            span.glyphicon.glyphicon-lock.form-control-feedback
+          .form-group.has-feedback
+            input.form-control(type='password', placeholder='再次输入密码')
+            span.glyphicon.glyphicon-log-in.form-control-feedback
+          .form-group.has-feedback
+            button.btn.btn-primary.btn-block.btn-flat(type='button')  注 册
+          .row
+            .col-xs-12
+              a(href='./register').pull-right 
+               i.glyphicon.glyphicon-retweet  
+               |  返回登陆

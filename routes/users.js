@@ -22,12 +22,12 @@ router.get('/login', function(req, res, next) {
   var singename = req.cookies['name_sig'];
   if(name != undefined){
     if(rule.pw(name,connectid,singename)){
-      res.redirect('/users');
+      res.redirect('/../');
     }else{
-      res.render('user', { title: 'logins' });
+      res.render('login', { title: 'logins' });
     }
   }else{
-    res.render('user', { title: 'logins' });
+    res.render('login', { title: 'logins' });
   }
   //console.log('login')
 });
@@ -60,7 +60,7 @@ router.get('/logout', function(req, res, next) {
 });
 /* 注册模块 */
 router.get('/register', function(req, res, next) {
-  res.render('user', { title: '注册' });
+  res.render('register', { title: '注册' });
 });
 router.post('/register', function(req, res, next) {
   var userObj = req.body;

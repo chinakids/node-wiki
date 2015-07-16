@@ -45,8 +45,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'doc')));
 
-//传递目录树
+//需要的参数先处理好
 app.get(/^\/*/,function(req, res, next){
+  console.log(1);
   treeModel.fetch(function(err,tree){
     if(err){
       console.log(err);
