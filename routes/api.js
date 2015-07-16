@@ -46,7 +46,7 @@ router.get('/updataMenu', function(req, res, next) {
       if(err){
         console.log(err);
       }
-      console.log(treeNode)
+      //console.log(treeNode)
       _tree = _.extend(tree[0],{tree:treeNode});
       //console.log(_list);
       if(tree.length<=0){
