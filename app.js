@@ -1,15 +1,37 @@
 var express = require('express');
-var path = require('path');
+var path = require('path')
+var http = require('http');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+
+var mongoose = require('mongoose');
+var treeModel = require('./models/tree');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var api = require('./routes/api');
 
 var app = express();
+
+var port = 3013;
+
+
+mongoose.connect('mongodb://127.0.0.1:27017/wiki');
+
+http.request({
+    port: port,
+    path: '/api/updataMenu',
+    method: 'GET'
+}, function (res) {
+  res.setEncoding('utf8');
+  res.on('data', function (chunk) {
+      console.log('BODY: ' + chunk);
+  });
+}).on('error', function (e) {
+  console.log('problem with request: ' + e.message);
+}).end();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -25,6 +47,17 @@ app.use(bodyParser.urlencoded({
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'doc')));
+
+//传递目录树
+app.get(/^\/*/,function(req, res, next){
+  treeModel.fetch(function(err,tree){
+    if(err){
+      console.log(err);
+    }
+    req.tree = tree[0].tree;
+    next(); // 将控制转向下一个符合URL的路由
+  })
+});
 
 app.use('/', routes);
 app.use('/users', users);
@@ -61,7 +94,7 @@ app.use(function(err, req, res, next) {
   });
 });
 
-app.listen(3013);
+app.listen(port);
 
 
 module.exports = app;
