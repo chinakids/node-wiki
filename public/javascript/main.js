@@ -222,26 +222,29 @@ $(function() {
          return false;
        }
     }
-    $.post('./register',registerFrom,function(data){
-      if(data.status==0){
-        var html = '<div class="callout callout-danger"><p>'+data.info+'</p></div>';
-        $('#tip').append(html);
-        setTimeout(function(){
-          $('.callout').fadeOut(500,function(){
-            $('.callout').remove();
-          });
-        },2000)
-      }else{
-        var html = '<div class="callout callout-success"><p>'+data.info+'</p></div>';
-        $('#tip').append(html);
-        setTimeout(function(){
-          $('.callout').fadeOut(500,function(){
-            $('.callout').remove();
-            window.location.href = './login';
-          });
-        },2000)
-      }
-    })
+    var status = true;
+    if(status){
+      $.post('./register',registerFrom,function(data){
+        if(data.status==0){
+          var html = '<div class="callout callout-danger"><p>'+data.info+'</p></div>';
+          $('#tip').append(html);
+          setTimeout(function(){
+            $('.callout').fadeOut(500,function(){
+              $('.callout').remove();
+            });
+          },2000)
+        }else{
+          var html = '<div class="callout callout-success"><p>'+data.info+'</p></div>';
+          $('#tip').append(html);
+          setTimeout(function(){
+            $('.callout').fadeOut(500,function(){
+              $('.callout').remove();
+              window.location.href = './login';
+            });
+          },2000)
+        }
+      })
+    }
   })
   //登陆
   var loginFrom = {
@@ -271,7 +274,7 @@ $(function() {
     }
   })
   $('#login button[name=submit]').click(function(){
-    console.log(loginFrom);
+    //console.log(loginFrom);
     for(var key in loginFrom){
        if(loginFrom[key] == false){
          var html = '<div class="callout callout-danger"><p>请将信息填写完整</p></div>';
@@ -284,26 +287,29 @@ $(function() {
          return false;
        }
     }
-    $.post('./login',loginFrom,function(data){
-      if(data.status==0){
-        var html = '<div class="callout callout-danger"><p>'+data.info+'</p></div>';
-        $('#tip').append(html);
-        setTimeout(function(){
-          $('.callout').fadeOut(500,function(){
-            $('.callout').remove();
-          });
-        },2000)
-      }else{
-        var html = '<div class="callout callout-success"><p>'+data.info+'</p></div>';
-        $('#tip').append(html);
-        setTimeout(function(){
-          $('.callout').fadeOut(500,function(){
-            $('.callout').remove();
-            window.location.href = './../';
-          });
-        },2000)
-      }
-    })
+    var status = true;
+    if(status){
+      $.post('./login',loginFrom,function(data){
+        if(data.status==0){
+          var html = '<div class="callout callout-danger"><p>'+data.info+'</p></div>';
+          $('#tip').append(html);
+          setTimeout(function(){
+            $('.callout').fadeOut(500,function(){
+              $('.callout').remove();
+            });
+          },2000)
+        }else{
+          var html = '<div class="callout callout-success"><p>'+data.info+'</p></div>';
+          $('#tip').append(html);
+          setTimeout(function(){
+            $('.callout').fadeOut(500,function(){
+              $('.callout').remove();
+              window.location.href = './../';
+            });
+          },2000)
+        }
+      })
+    }
   });
   $('.jq-edit').click(function(){
     var md = $(this).attr('data-md');
@@ -413,26 +419,31 @@ $(function() {
       $('#in-path').val('').attr('placeholder','根目录只能创建文件夹');
       return false;
     }
-    $.post('/api/addFile',obj,function(data){
-      console.log(data);
-      if(data.status==1){
-        var html = '<div class="callout callout-success"><p>'+data.info+'</p></div>';
-        $('#tip').append(html);
-        setTimeout(function(){
-          $('.callout').fadeOut(500,function(){
-            $('.callout').remove();
-            window.location.href = data.url;
-          });
-        },2000)
-      }else{
-        var html = '<div class="callout callout-danger"><p>'+data.info+'</p></div>';
-        $('#tip').append(html);
-        setTimeout(function(){
-          $('.callout').fadeOut(500,function(){
-            $('.callout').remove();
-          });
-        },2000)
-      }
-    })
+    var status =true;
+    if(status){
+      status = false;
+      $.post('/api/addFile',obj,function(data){
+        tatus = true;
+        //console.log(data);
+        if(data.status==1){
+          var html = '<div class="callout callout-success"><p>'+data.info+'</p></div>';
+          $('#tip').append(html);
+          setTimeout(function(){
+            $('.callout').fadeOut(500,function(){
+              $('.callout').remove();
+              window.location.href = data.url;
+            });
+          },2000)
+        }else{
+          var html = '<div class="callout callout-danger"><p>'+data.info+'</p></div>';
+          $('#tip').append(html);
+          setTimeout(function(){
+            $('.callout').fadeOut(500,function(){
+              $('.callout').remove();
+            });
+          },2000)
+        }
+      })
+    }
   })
 })

@@ -182,8 +182,12 @@ T3: 2014-01-02, 9d"></i>
     </div>
     <div class="ui-layout-south">
       <ul class="edit-foot">
-        <li><a href="javascript:;" class="close">取消</a></li>
-        <li><a href="javascript:;" class="ok"><i class="fa fa-spinner fa-spin"></i>保存并退出</a></li>
+        <li>
+          <p class="success">* 保存成功</p>
+          <p class="error">* 保存失败</p>
+        </li>
+        <li class="f-r"><a href="javascript:;" class="close">取消</a></li>
+        <li class="f-r"><a href="javascript:;" class="ok"><i class="fa fa-spinner fa-spin"></i>保存并退出</a></li>
       </ul>
     </div>
   </body>
@@ -242,13 +246,23 @@ T3: 2014-01-02, 9d"></i>
             md      : getUrlMes().md,
             content : newContent
           },function(data){
-            console.log(data);
-            _this.removeClass('load');
-            var dialog = top.dialog.get(window);
-            dialog.close();
-            dialog.remove();
+            status = true;
+            //console.log(data);
+            if(data.status == 1){
+              _this.removeClass('load');
+              $('.edit-foot .success').fadeIn(1000, function() {
+                $(this).hide();
+                var dialog = top.dialog.get(window);
+                dialog.close();
+                dialog.remove();
+              });
+            }else{
+              $('.edit-foot .error').fadeIn(2000, function() {
+                $(this).hide();
+              });
+            }
           })
-          console.log(editor.session.getValue());
+          //console.log(editor.session.getValue());
         }
       }
 
