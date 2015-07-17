@@ -15,3 +15,9 @@ block content
                   |  主页      
               each item2 in item.map
                 li.active #{item2}
+        if bookList.length <= 0
+          div.callout.callout-info
+            h4
+              i.icon.fa.fa-info 
+              |  抱歉
+            p 我们未能检索到您需要的文档，请输入文件关键词后尝试

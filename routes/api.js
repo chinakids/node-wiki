@@ -112,7 +112,7 @@ router.get('/search', function(req, res, next) {
     if(err){
       console.log(err)
     }
-    console.log(book);
+    //book = book == [] ? null : book
     res.render('list', {
       title: '搜索结果',
       tree: req.tree,
