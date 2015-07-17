@@ -17,34 +17,39 @@ block layout
               span.sr-only Toggle navigation
             .navbar-custom-menu
               ul.nav.navbar-nav
-                li.dropdown.user.user-menu
-                  if loginInfo != false
-                    a.dropdown-toggle(href='#', data-toggle='dropdown')
-                      img.user-image(src='/theme/img/user2-160x160.jpg', alt='User Image')
-                      span.hidden-xs #{loginInfo.userName}
-                    ul.dropdown-menu
-                      li.user-header
-                        img.img-circle(src='/theme/img/user2-160x160.jpg', alt='User Image')
-                        if loginInfo.role == 0
-                          p #{loginInfo.userName} - 开发人员
-                            small #{loginInfo.email}
-                        if loginInfo.role == 1
-                          p #{loginInfo.userName} - 产品经理
-                            small #{loginInfo.email}
-                        if loginInfo.role == 2
-                          p #{loginInfo.userName} - 测试人员
-                            small #{loginInfo.email}
-                        if loginInfo.role == 3
-                          p #{loginInfo.userName} - 项目管理
-                            small #{loginInfo.email}
-                      li.user-footer
-                        .pull-left
-                          a.btn.btn-default.btn-flat(href='javascript:;')
-                            i.fa.fa-gears  设置                 
-                        .pull-right
-                          a.btn.btn-default.btn-flat(href='/users/logout')
-                            i.fa.fa-sign-out  退出
-                  else
+                if loginInfo != false
+                  li.user-menu
+                    a(href='javascript:;')
+                      i.fa.fa-plus-square-o
+                      |  新建文档
+                  li.dropdown.user.user-menu
+                      a.dropdown-toggle(href='#', data-toggle='dropdown')
+                        img.user-image(src='/theme/img/user2-160x160.jpg', alt='User Image')
+                        span.hidden-xs #{loginInfo.userName}
+                      ul.dropdown-menu
+                        li.user-header
+                          img.img-circle(src='/theme/img/user2-160x160.jpg', alt='User Image')
+                          if loginInfo.role == 0
+                            p #{loginInfo.userName} - 开发人员
+                              small #{loginInfo.email}
+                          if loginInfo.role == 1
+                            p #{loginInfo.userName} - 产品经理
+                              small #{loginInfo.email}
+                          if loginInfo.role == 2
+                            p #{loginInfo.userName} - 测试人员
+                              small #{loginInfo.email}
+                          if loginInfo.role == 3
+                            p #{loginInfo.userName} - 项目管理
+                              small #{loginInfo.email}
+                        li.user-footer
+                          .pull-left
+                            a.btn.btn-default.btn-flat(href='javascript:;')
+                              i.fa.fa-gears  设置                 
+                          .pull-right
+                            a.btn.btn-default.btn-flat(href='/users/logout')
+                              i.fa.fa-sign-out  退出
+                else
+                  li.dropdown.user.user-menu
                     a.dropdown-toggle(href='/users/login')
                       img.user-image(src='/theme/img/user2-160x160.jpg', alt='User Image')
                       span.hidden-xs 登陆 / 注册

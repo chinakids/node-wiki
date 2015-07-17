@@ -198,9 +198,9 @@ $(function() {
       registerFrom.password = $(this).val();
     }
   })
-  $('#register select[name=role]').change(function(){
+  $('#register select[name=role]').blur(function(){
     //console.log($(this).val());
-    if($(this).val() == -1){
+    if($(this).val() == -1 || $(this).val() == undefined || $(this).val() == null){
       $(this).parent('.form-group').addClass('has-error');
       registerFrom.role = false;
     }else{

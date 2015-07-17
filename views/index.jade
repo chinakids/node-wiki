@@ -26,9 +26,10 @@ block content
               h4 
                 i.fa.fa-paperclip
                 |  文档工具栏
-              a(href="javascript:;")
-                i.fa.fa-edit
-                |  编辑此文档
+              if loginInfo != false
+                a(href="javascript:;")
+                  i.fa.fa-edit
+                  |  编辑此文档
               a(href="/download?md=#{download}",target='_blank')
                 i.fa.fa-download  
                 |  下载此文档 
