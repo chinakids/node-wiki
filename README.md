@@ -40,7 +40,7 @@
 
 -   3.markdown 支持使用 [marked](https://github.com/chjj/marked)在服务器解析，扩展支持流程图，函数，甘特图，顺序图等
 
--   4.在线编辑器采用基于 [ace](https://github.com/ajaxorg/ace) 开发的 [markdown-plus](https://github.com/tylingsoft/markdown-plus),扩展支持 Art-Reactor 字体，保存功能
+-   4.在线编辑器采用基于 [ace](https://github.com/ajaxorg/ace) 开发的 [markdown-plus](https://github.com/tylingsoft/markdown-plus),扩展支持 [Art-Reactor](https://github.com/chinakids/Art-Reactor) 字体，保存功能
 
 ###3.涉及技能
 
