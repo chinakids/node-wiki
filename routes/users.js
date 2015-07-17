@@ -21,7 +21,7 @@ router.get('/login', function(req, res, next) {
   if(req.loginInfo != false){
     res.redirect('/../');
   }else{
-    res.render('login', { title: 'logins' });
+    res.render('login', { title: '登陆' });
   }
   //console.log('login')
 });

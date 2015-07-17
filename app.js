@@ -61,7 +61,7 @@ app.post(/^\/*/,function(req, res, next){
     });
   }else{
     req.loginInfo = false;
-    res.send({status:0,info:'此方法需要用户登录'})
+    next(); // 将控制转向下一个符合URL的路由
   }
 });
 app.get(/^\/*/,function(req, res, next){
