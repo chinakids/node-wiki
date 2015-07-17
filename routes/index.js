@@ -39,5 +39,10 @@ router.get('/book', function(req, res, next) {
     });
   });
 });
+//下载
+router.get('/download', function(req, res, next) {
+  var md = req.query.md;
+  res.download(path.join(__dirname, '../doc/' + md + '.md'),md.split('/')[md.split('/').length -1]+'.md');
+});
 
 module.exports = router;
