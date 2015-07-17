@@ -5,13 +5,13 @@ block layout
     .login-box
       .login-logo
         a(href='/')
-          b Wiki
+          b WIKI
           | 用户中心
       .login-box-body
         p.login-box-msg 请输入相关信息完成注册
         form#register
           .form-group.has-feedback
-            input.form-control(type='text',name='name',placeholder='姓名')   
+            input.form-control(type='text',name='name',placeholder='姓名')
             span.glyphicon.glyphicon-user.form-control-feedback
           .form-group.has-feedback
             input.form-control(type='email',name='email',placeholder='邮箱')
@@ -26,14 +26,14 @@ block layout
             select.form-control(name='role')
               option(value='-1') 请选择用户角色
               option(value='0') 开发人员
-              option(value='2') 产品经理
-              option(value='3') 测试人员
-              option(value='4') 项目管理
+              option(value='1') 产品经理
+              option(value='2') 测试人员
+              option(value='3') 项目管理
           .form-group.has-feedback#tip
           .form-group.has-feedback
             button.btn.btn-primary.btn-block.btn-flat(type='button',name='submit')  注 册
           .row
             .col-xs-12
-              a(href='/users/login').pull-right 
-               i.glyphicon.glyphicon-retweet  
+              a(href='/users/login').pull-right
+               i.glyphicon.glyphicon-retweet
                |  返回登陆
