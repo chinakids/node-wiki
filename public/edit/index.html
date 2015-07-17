@@ -213,11 +213,17 @@ T3: 2014-01-02, 9d"></i>
     if(typeof(top.dialog)=="function"){
 			var dialog = top.dialog.get(window);
 			$('.close').click( function () {
-        if(!confirm('文档尚未保存\n 是否确认退出？')){
-          return false;
+        var newContent=editor.session.getValue(),dialog = top.dialog.get(window);
+        if(newContent == oldContent){
+            dialog.close();
+            dialog.remove();
+        }else{
+          if(!confirm('文档尚未保存\n 是否确认退出？')){
+            return false;
+          }
+  				dialog.close();
+  				dialog.remove();
         }
-				dialog.close();
-				dialog.remove();
 			});
 		}
     $('.ok').click(function(){

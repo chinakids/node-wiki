@@ -146,6 +146,7 @@ $(function() {
   var reg ={
     "*":/[\w\W]+/, //不为空
     "*6-16":/^[\w\W]{6,16}$/, //6-16位任意字符
+    "s":/^[\u4E00-\u9FA5\uf900-\ufa2d\u002f\w\.\s]{1,}$/, //不包含特殊字符包含'/'
     "s6-18":/^[\u4E00-\u9FA5\uf900-\ufa2d\w\.\s]{6,18}$/, //不包含特殊字符的6-18位任意
     "e":/^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/  //邮箱
   }
@@ -317,5 +318,121 @@ $(function() {
       }
     })
     .showModal();
+  })
+  var treeArr = [];
+  function getTreeArr(obj){
+    for(var key in obj){
+      treeArr.push(obj[key].path.split('/doc')[1]);
+      console.log(obj[key].subNodes.length);
+      if(obj[key].subNodes.length>0){
+        getTreeArr(obj[key].subNodes);
+      }
+    }
+  }
+  getTreeArr(tree);//tree 在 common.jade 中初始化了
+  var option = '';
+  for(var key in treeArr){
+    option += '<option value="'+treeArr[key]+'/">'+treeArr[key]+'/</option>';
+  }
+  var addHtml = '<div class="add-box">'
+              +   '<h3><i class="fa fa-plus-square-o"></i>创建新文档<a href="javascript:;" class="btn-close"><i class="ar ar-cancel"></i></a></h3>'
+              +   '<div class="form-group">'
+              +       '<label>选择目录</label>'
+              +       '<select class="form-control" id="choose-path"><option>/</option>'
+              +       option
+              +       '</select>'
+              +     '</div>'
+              +   '<div class="form-group">'
+              +   '<label>输入文件目录以及文件名（例：`wiki规范/使用说明`或者`wiki使用守则`）</label>'
+              +   '<div class="input-group">'
+              +     '<span class="input-group-addon" id="init-path">/</span>'
+              +     '<input id="in-path" type="text" class="form-control" placeholder="请输入文件名（可带目录）">'
+              +     '<span class="input-group-addon">.md</span>'
+              +   '</div>'
+              +   '<p class="text-yellow" id="out-path">最终输出目录为：<b>/wiki规范/使用说明.md</b></p>'
+              +   '</div>'
+              +   '<div id="tip"></div>'
+              +   '<p class="foot"><a href="javascript:;" class="btn btn-primary btn-ok">确定</a><a href="javascript:;" class="btn btn-default btn-close">取消</a></p>'
+              + '</div>',
+      addBox;
+  $('.jq-add').click(function(){
+    addBox = dialog({
+      content:addHtml,
+      width: 600,
+      height: 'auto',
+      zIndex: 100000,
+      fixed: true,
+      onremove: function () {
+        //window.location.reload();
+      }
+    });
+    addBox.showModal();
+  })
+  $(document).on('click','.add-box .btn-close',function(){
+    addBox.close();
+  })
+  function outPath(){
+    var out = $('#choose-path').val()  + $('#in-path').val() + '.md';
+    $('#out-path b').text(out);
+  }
+  $(document).on('change','#choose-path',function() {
+    var _this = $(this);
+    $('#init-path').text(_this.val());
+    outPath();
+  });
+  $(document).on('keyup','#in-path',function(){
+    outPath();
+  })
+  $(document).on('blur','#in-path',function(){
+    if(!(reg['s'].test($(this).val()))){
+      $(this).parent().parent('.form-group').addClass('has-error');
+      $(this).val('').attr('placeholder','不允许为空或者包含特殊字符');
+    }else{
+      $(this).parent().parent('.form-group').removeClass('has-error');
+      $(this).attr('placeholder','请输入文件名（可带目录）');
+    }
+  })
+  $(document).on('click','.add-box .btn-ok',function(){
+    var out = $('#choose-path').val()  + $('#in-path').val();
+    var obj = {
+      file : out,
+      newMenu:$('#in-path').val().indexOf('/')
+    }
+    if(!(reg['s'].test($('#in-path').val()))){
+      $('#in-path').parent().parent('.form-group').addClass('has-error');
+      $('#in-path').val('').attr('placeholder','不允许为空或者包含特殊字符');
+      return false;
+    }
+    if(out.split('/').length>4){
+      $('#in-path').parent().parent('.form-group').addClass('has-error');
+      $('#in-path').val('').attr('placeholder','目录深度不能超过2级');
+      return false;
+    }
+    if(out.split('/').length<=2){
+      $('#in-path').parent().parent('.form-group').addClass('has-error');
+      $('#in-path').val('').attr('placeholder','根目录只能创建文件夹');
+      return false;
+    }
+    $.post('/api/addFile',obj,function(data){
+      console.log(data);
+      if(data.status==1){
+        var html = '<div class="callout callout-success"><p>'+data.info+'</p></div>';
+        $('#tip').append(html);
+        setTimeout(function(){
+          $('.callout').fadeOut(500,function(){
+            $('.callout').remove();
+            window.location.href = data.url;
+          });
+        },2000)
+      }else{
+        var html = '<div class="callout callout-danger"><p>'+data.info+'</p></div>';
+        $('#tip').append(html);
+        setTimeout(function(){
+          $('.callout').fadeOut(500,function(){
+            $('.callout').remove();
+          });
+        },2000)
+      }
+    })
   })
 })

@@ -7,6 +7,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var rule = require('./tools/rule');
+var updata = require('./tools/updata');
 var mongoose = require('mongoose');
 var treeModel = require('./models/tree');
 var usermodel = require('./models/users');
@@ -22,15 +23,7 @@ var port = 3013;
 
 mongoose.connect('mongodb://127.0.0.1:27017/wiki');
 
-http.request({
-    port: port,
-    path: '/api/updataMenu',
-    method: 'GET'
-}, function (res) {
-  res.setEncoding('utf8');
-}).on('error', function (e) {
-  console.log('problem with request: ' + e.message);
-}).end();
+updata.menu(port);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

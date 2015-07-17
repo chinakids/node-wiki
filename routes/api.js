@@ -3,7 +3,7 @@ var router = express.Router();
 var fs = require('fs');
 var _ = require('underscore');
 var path = require('path');
-var http = require('http');
+var updata = require('../tools/updata');
 
 var treeModel = require('../models/tree');
 var bookModel = require('../models/book');
@@ -60,7 +60,7 @@ router.get('/updataMenu', function(req, res, next) {
     treeNode.subNodes = [];
     treeNode.files = [];
     treeNode.pathName = path.split('/')[path.split('/').length - 1];
-    //console.log(treeNode.pathName);
+    console.log(path);
     var dirList = fs.readdirSync(path);
     dirList.forEach(function(item) {
       if (fs.statSync(path + '/' + item).isDirectory()) {
@@ -84,13 +84,19 @@ router.get('/updataMenu', function(req, res, next) {
       if(err){
         console.log(err);
       }
-      //console.log(treeNode)
-      _tree = _.extend(tree[0],{tree:treeNode});
       //console.log(_list);
       if(tree.length<=0){
         _tree = new menuModel({
           tree   :  treeNode
         })
+        _tree.save(function(err, tree){
+          if(err){
+            console.log(err);
+          }
+          console.log('成功更新目录数据库')
+        })
+      }else{
+        _tree = _.extend(tree[0],{tree:treeNode});
         _tree.save(function(err, tree){
           if(err){
             console.log(err);
@@ -141,18 +147,58 @@ router.post('/saveBookContent',function(req,res,next){
       res.send({status:0,info:'保存失败,请重试'})
     }else{
       //重写目录
-      http.request({
-          port: req.httpPort,
-          path: '/api/updataMenu',
-          method: 'GET'
-      }, function (res) {
-        console.log('保存且目录更新成功');
-      }).on('error', function (e) {
-        console.log('problem with request: ' + e.message);
-      }).end();
+      updata.menu(req.httpPort);
       res.send({status:1,info:'保存成功'});
     }
   });
-})
-
+});
+//API 创建文件
+router.post('/addFile',function(req,res,next){
+  console.log(path.join(__dirname, '../doc'+req.body.file + '.md'));
+  var arr = req.body.file.split('/');
+      arr.pop();
+      arr = arr.join('/');
+  fs.exists(path.join(__dirname, '../doc'+arr), function(exists) {
+    console.log('exists:', exists);
+    // => false
+    if(!exists){
+      //目录不存在先创建目录
+      fs.mkdirSync(path.join(__dirname, '../doc'+arr));
+      fs.exists(path.join(__dirname, '../doc'+req.body.file + '.md'),function(exists){
+        if(!exists){
+          fs.writeFile(decodeURI(path.join(__dirname, '../doc'+req.body.file + '.md')), '#Hello World!\n', function(err){
+            if(err){
+              console.log(err);
+              res.send({status:0,info:'文件写入错误'});
+            }else{
+              //重写目录
+              updata.menu(req.httpPort);
+              res.send({status:1,info:'创建成功',url:'book?md='+req.body.file.substr(1)});
+            }
+          });
+        }else{
+          res.send({status:0,info:'文件存在,无法创建'});
+        }
+      })
+    }else{
+      //直接创建
+      fs.exists(path.join(__dirname, '../doc'+req.body.file + '.md'),function(exists){
+        if(!exists){
+          fs.writeFile(decodeURI(path.join(__dirname, '../doc'+req.body.file + '.md')), '#Hello World!\n', function(err){
+            if(err){
+              console.log(err);
+              res.send({status:0,info:'文件写入错误'});
+            }else{
+              //重写目录
+              updata.menu(req.httpPort);
+              res.send({status:1,info:'创建成功',url:'book?md='+req.body.file.substr(1)});
+            }
+          });
+        }else{
+          res.send({status:0,info:'文件存在,无法创建'});
+        }
+      })
+    }
+  });
+});
 module.exports = router;

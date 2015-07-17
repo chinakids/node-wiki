@@ -11,6 +11,10 @@ pre{
     background: #f7f7f7;
   }
 }
+.fa-plus-square-o{
+  position: relative;
+  top:1px;
+}
 .callout-default{
   background-color: #fff;
   .breadcrumb{
@@ -309,7 +313,7 @@ div.mermaid {
       }
       &.close{
         color: #333;
-        background-color: #fff;
+        background-color: #f4f4f4;
         border-color: #ccc;
         &:hover{
           color: #333;
@@ -317,6 +321,54 @@ div.mermaid {
           border-color: #adadad;
         }
       }
+    }
+  }
+}
+.add-box{
+  padding: 20px;
+  border:1px solid #e5e5e5;
+  background-color: #fff;
+  border-radius: 5px;
+  .input-group{
+    margin-bottom: 10px;
+  }
+  h3{
+    margin-top: 0;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e5e5e5;
+    i{
+      margin-right: 10px;
+    }
+    .btn-close{
+      float: right;
+      color: #333;
+      font-size: 20px;
+      position: relative;
+      top: 5px;
+      right: 0;
+      -webkit-transition: all 0.3s;
+         -moz-transition: all 0.3s;
+          -ms-transition: all 0.3s;
+           -o-transition: all 0.3s;
+              transition: all 0.3s;
+      &:hover{
+        -webkit-transform:rotate(90deg);
+           -moz-transform:rotate(90deg);
+            -ms-transform:rotate(90deg);
+             -o-transform:rotate(90deg);
+                transform:rotate(90deg);
+      }
+      i{
+        margin: 0;
+      }
+    }
+  }
+  .foot{
+    text-align: center;
+    margin:0;
+    .btn{
+      display: inline;
+      margin:0 8px;
     }
   }
 }
