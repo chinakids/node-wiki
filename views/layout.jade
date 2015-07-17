@@ -21,7 +21,7 @@ block layout
                   li.user-menu
                     a(href='javascript:;')
                       i.fa.fa-plus-square-o
-                      |  新建文档
+                      |   发布文档
                   li.dropdown.user.user-menu
                       a.dropdown-toggle(href='#', data-toggle='dropdown')
                         img.user-image(src='/theme/img/user2-160x160.jpg', alt='User Image')
@@ -44,7 +44,7 @@ block layout
                         li.user-footer
                           .pull-left
                             a.btn.btn-default.btn-flat(href='javascript:;')
-                              i.fa.fa-gears  设置                 
+                              i.fa.fa-gears  设置
                           .pull-right
                             a.btn.btn-default.btn-flat(href='/users/logout')
                               i.fa.fa-sign-out  退出
@@ -73,31 +73,31 @@ block layout
                       each item2 in item.subNodes
                         li
                           a(href='#',title='#{item2.pathName}')
-                            i.fa.fa-circle-o  
+                            i.fa.fa-circle-o
                             |  #{item2.pathName}
-                            i.fa.fa-angle-left.pull-right 
+                            i.fa.fa-angle-left.pull-right
                           ul.treeview-menu
                             each item3 in item2.files
                               li
                                 a(href='/book?md=#{item.pathName}/#{item2.pathName}/#{item3}',title='#{item3}')
-                                  i.fa.fa-book  
+                                  i.fa.fa-book
                                   |  #{item3}
                       each item2 in item.files
                         li
                           a(href='/book?md=#{item.pathName}/#{item2}',title='#{item2}')
-                            i.fa.fa-book  
+                            i.fa.fa-book
                             |  #{item2}
         .content-wrapper
           block content
         footer.main-footer
           .pull-right.hidden-xs
-            b By. 
+            b By.
             a(href='http://github.com/chinakids',target='_blank') @Chinakids
-            |  -   
-            b Fork 
+            |  - 
+            b Fork
             a(href='http://github.com/chinakids/node-wiki',target='_blank') This program.
-            |  -   
-            b Report 
-            a(href='http://github.com/chinakids/node-wiki/issues',target='_blank') Thie issues.      
-          strong Copyright &copy; 2014-2015 
+            |  - 
+            b Report
+            a(href='http://github.com/chinakids/node-wiki/issues',target='_blank') Thie issues.
+          strong Copyright &copy; 2014-2015
           |  All rights reserved.
