@@ -43,7 +43,26 @@ app.use(express.static(path.join(__dirname, 'doc')));
 //需要的参数先处理好
 app.post(/^\/*/,function(req, res, next){
   req.httpPort = port;
-  next();
+  var email = req.cookies['email'],
+      connectid = req.cookies['connect.id'],
+      singename = req.cookies['name_sig'];
+  if(rule.pw(email,connectid,singename)){
+    //获取用户信息并传递
+    usermodel.findByEmail(email,function(err,user){
+      if(err){
+        console.log(err);
+      };
+      if(user.length <=0){
+        req.loginInfo = false;
+      }else{
+        req.loginInfo = user[0];
+      }
+      next(); // 将控制转向下一个符合URL的路由
+    });
+  }else{
+    req.loginInfo = false;
+    res.send({status:0,info:'此方法需要用户登录'})
+  }
 });
 app.get(/^\/*/,function(req, res, next){
   //读取目录
@@ -53,9 +72,9 @@ app.get(/^\/*/,function(req, res, next){
     }
     req.tree = tree[0].tree;
     //判断登陆
-    var email = req.cookies['email']
-    var connectid = req.cookies['connect.id'];
-    var singename = req.cookies['name_sig'];
+    var email = req.cookies['email'],
+        connectid = req.cookies['connect.id'],
+        singename = req.cookies['name_sig'];
     if(rule.pw(email,connectid,singename)){
       //获取用户信息并传递
       usermodel.findByEmail(email,function(err,user){
