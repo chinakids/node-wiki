@@ -139,6 +139,16 @@ pre{
       cursor: pointer;
     }
   }
+  .ar {
+    font-size: 14px;
+    padding: 2px;
+    border: 1px solid transparent;
+    &:hover{
+      background-color: #dddddd;
+      border-color: #cccccc;
+      cursor: pointer;
+    }
+  }
 }
 .ui-layout-toggler {
   background-color: #cccccc;
@@ -165,7 +175,9 @@ i.dividor {
   user-select: none;
 }
 /* source code highlight */
+
 .markdown-body{
+  padding: 2em;
   margin: 0 auto;
   .ace-github {
     background-color: #f7f7f7 !important;
@@ -210,7 +222,104 @@ i.dividor {
 div.mermaid {
   text-align: center;
 }
-
+.box-body.markdown-body{
+  padding: 0;
+}
+.edit-head{
+  height: 46px;
+  h3{
+    margin: 0;
+    padding: 10px 15px;
+    float: left;
+    i{
+      margin-right: 10px;
+    }
+  }
+  .close{
+    float: right;
+    color: #333;
+    font-size: 20px;
+    position: relative;
+    top: 10px;
+    right: 10px;
+    -webkit-transition: all 0.3s;
+       -moz-transition: all 0.3s;
+        -ms-transition: all 0.3s;
+         -o-transition: all 0.3s;
+            transition: all 0.3s;
+    &:hover{
+      -webkit-transform:rotate(90deg);
+         -moz-transform:rotate(90deg);
+          -ms-transform:rotate(90deg);
+           -o-transform:rotate(90deg);
+              transform:rotate(90deg);
+    }
+  }
+}
+.edit-foot{
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 50px;
+  background-color: #eee;
+  li{
+    float: right;
+    padding: 8px 0;
+    list-style: none;
+    a{
+      display: inline-block;
+      padding: 6px 12px;
+      margin-bottom: 0;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.42857143;
+      text-align: center;
+      white-space: nowrap;
+      vertical-align: middle;
+      -ms-touch-action: manipulation;
+      touch-action: manipulation;
+      cursor: pointer;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      background-image: none;
+      border: 1px solid transparent;
+      border-radius: 4px;
+      margin: 0 5px;
+      text-decoration: none;
+      &.ok{
+        color: #fff;
+        background-color: #337ab7;
+        border-color: #2e6da4;
+        &:hover{
+          color: #fff;
+          background-color: #286090;
+          border-color: #204d74;
+        }
+        i{
+          margin-right: 10px;
+          display: none;
+        }
+        &.load{
+          i{
+            display: inline-block;
+          }
+        }
+      }
+      &.close{
+        color: #333;
+        background-color: #fff;
+        border-color: #ccc;
+        &:hover{
+          color: #333;
+          background-color: #e6e6e6;
+          border-color: #adadad;
+        }
+      }
+    }
+  }
+}
 /*************************/
 /* below is for printing */
 /*************************/

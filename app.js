@@ -49,6 +49,7 @@ app.use(express.static(path.join(__dirname, 'doc')));
 
 //需要的参数先处理好
 app.get(/^\/*/,function(req, res, next){
+  req.httpPort = port;
   //读取目录
   treeModel.fetch(function(err,tree){
     if(err){

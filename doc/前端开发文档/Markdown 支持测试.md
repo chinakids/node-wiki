@@ -65,6 +65,7 @@ Function name | Description
 <i class="ar ar-juice" style="font-size: 64px;"></i>
 <i class="ar ar-coffee" style="font-size: 64px;"></i>
 <i class="ar ar-strawberry" style="font-size: 64px;"></i>
+<i class="ar ar-clock" style="font-size:64px;"/></i>
 
 [All the Art Reactor icons](http://chinakids.github.io/Art-Reactor/dome/index.html)
 

@@ -303,5 +303,19 @@ $(function() {
         },2000)
       }
     })
+  });
+  $('.jq-edit').click(function(){
+    var md = $(this).attr('data-md');
+    dialog({
+      url: '/edit/index.html?md='+md,
+      width: parseInt($(window).width() * 0.95),
+      height: parseInt($(window).height() * 0.9),
+      zIndex: 100000,
+      fixed: true,
+      onremove: function () {
+        window.location.reload();
+      }
+    })
+    .showModal();
   })
 })

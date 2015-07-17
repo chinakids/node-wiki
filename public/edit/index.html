@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Markdown Plus</title>
+    <link rel="stylesheet" href="/lib/jquery-ui-min/themes/base/jquery-ui.min.css"/>
+    <link rel="stylesheet" href="/lib/jquery-ui-layout-min/layout-default.css"/>
+    <link rel="stylesheet" href="/lib/github-markdown-css/github-markdown.css"/>
+    <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="/lib/art-reactor/dist/art-reactor.min.css">
+    <link rel="stylesheet" href="/lib/remodal-min/jquery.remodal.css"/>
+    <link rel="stylesheet" href="/lib/katex-build/katex.min.css"/>
+    <link rel="stylesheet" href="/lib/ionicons/css/ionicons.min.css"/>
+    <link rel="stylesheet" href="/lib/mermaid-min/mermaid.css"/>
+    <link rel="stylesheet" href="/stylesheets/markdown.min.css"/>
+    <script src="/lib/underscore-min/underscore-min.js"></script>
+    <script src="/lib/jquery/dist/jquery.min.js"></script>
+    <script src="/lib/jquery-ui-min/jquery-ui.min.js"></script>
+    <script src="/lib/jquery-ui-layout-min/jquery.layout.min.js"></script>
+    <script src="/lib/jquery.cookie-min/jquery.cookie.js"></script>
+    <script src="/lib/ace-min-noconflict/ace.js" charset="utf-8"></script>
+    <script src="/lib/ace-min-noconflict/ext-static_highlight.js"></script>
+    <script src="/lib/ace-min-noconflict/ext-modelist.js"></script>
+    <script src="/lib/ace-min-noconflict/keybinding-vim.js"></script>
+    <script src="/lib/ace-min-noconflict/keybinding-emacs.js"></script>
+    <script src="/lib/markedown/markedown.min.js"></script>
+    <script src="/lib/remodal-min/jquery.remodal.min.js"></script>
+    <script src="/lib/katex-build/katex.min.js"></script>
+    <script src="/lib/mermaid-min/mermaid.full.min.js"></script>
+    <script src="./markdown-plus.js"></script>
+  </head>
+  <body>
+    <div class="ui-layout-north">
+      <div class="edit-head">
+        <h3 id='title'></h3>
+        <a href="javascript:;" class="close" title="关闭"><i class="ar ar-cancel"></i></a>
+      </div>
+      <div id="toolbar" class="noselect" data-open-title="隐藏工具栏" data-closed-title="显示工具栏"> <!-- 工具栏 -->
+        <i title="新建" class="fa fa-file-text-o file-icon app-only" data-name="new"></i>
+        <i title="打开" class="fa fa-folder-open-o file-icon app-only" data-name="open"></i>
+        <i title="保存" class="fa fa-save file-icon app-only" data-name="save"></i>
+        <i title="导出为 HTML" class="fa fa-file-code-o file-icon app-only" data-name="html"></i>
+        <i title="导出为 PDF" class="fa fa-file-pdf-o file-icon app-only" data-name="pdf"></i>
+        <i title="导出为图片" class="fa fa-file-image-o file-icon app-only" data-name="image"></i>
+        <i class="dividor app-only">|</i>
+        <i title="粗体" class="fa fa-bold styling-icon" data-modifier="**"></i>
+        <i title="斜体" class="fa fa-italic styling-icon" data-modifier="*"></i>
+        <i title="删除线" class="fa fa-strikethrough styling-icon" data-modifier="~~"></i>
+        <i class="dividor">|</i>
+        <i title="标题 1" class="fa heading-icon" data-level="1">h1</i>
+        <i title="标题 2" class="fa heading-icon" data-level="2">h2</i>
+        <i title="标题 3" class="fa heading-icon" data-level="3">h3</i>
+        <i title="标题 4" class="fa heading-icon" data-level="4">h4</i>
+        <i title="标题 5" class="fa heading-icon" data-level="5">h5</i>
+        <i title="标题 6" class="fa heading-icon" data-level="6">h6</i>
+        <i class="dividor">|</i>
+        <i title="横线" id="horizontal-rule" class="fa fa-minus"></i>
+        <i title="引用" class="fa fa-quote-left list-icon" data-prefix="> "></i>
+        <i title="无序列表" class="fa fa-list-ul list-icon" data-prefix="- "></i>
+        <i title="有序列表" class="fa fa-list-ol list-icon" data-prefix="1. "></i>
+        <i title="未完成任务列表" class="fa fa-square-o list-icon" data-prefix="- [ ] "></i>
+        <i title="已完成任务列表" class="fa fa-check-square-o list-icon" data-prefix="- [x] "></i>
+        <i class="dividor">|</i>
+        <i title="链接" class="fa fa-link" id="link-icon" data-sample-text="链接文字" data-sample-url="http://example.com"></i>
+        <i title="图片" class="fa fa-image" id="image-icon" data-sample-text="图片描述" data-sample-url="http://example.com/example.png"></i>
+        <i title="代码" class="fa fa-code" id="code-icon"></i>
+        <i title="表格" class="fa fa-table" id="table-icon" data-sample="列名 1 | 列名 2
+---|---
+第一行第一列 | 第一行第二列
+第二行第一列 | 第二行第二列"></i>
+        <i class="dividor">|</i>
+        <i title="Emoji 图标" class="fa fa-smile-o" data-remodal-target="emoji-modal"></i>
+        <i title="Font Awesome 图标" class="fa fa-flag-o" data-remodal-target="fa-modal"></i>
+        <i title="Ionicons 图标" class="icon ion-ionic" data-remodal-target="ion-modal"></i>
+        <i title="Art Reactor 图标" class="ar ar-loading-d" data-remodal-target="ar-modal"></i>
+        <i class="dividor">|</i>
+        <i title="数学公式" class="fa fa-superscript" id="math-icon" data-sample="E = mc^2"></i>
+        <i title="流程图" class="fa fa-long-arrow-right mermaid-icon" data-sample="graph LR
+A-->B"></i>
+        <i title="顺序图" class="fa fa-exchange mermaid-icon" data-sample="sequenceDiagram
+A->>B: 你好吗？
+B->>A: 我很好！"></i>
+        <i title="甘特图" class="fa fa-sliders mermaid-icon" data-sample="gantt
+dateFormat YYYY-MM-DD
+section S1
+T1: 2014-01-01, 9d
+section S2
+T2: 2014-01-11, 9d
+section S3
+T3: 2014-01-02, 9d"></i>
+        <i class="dividor">|</i>
+        <i title="首选项" class="fa fa-cog" data-remodal-target="preferences-modal"></i>
+        <i title="帮助" class="fa fa-question-circle" data-remodal-target="help-modal"></i>
+        <i title="关于" class="fa fa-info-circle" data-remodal-target="about-modal"></i>
+        <i class="dividor">|</i>
+        <i class="ar ar-fullscreen" title="切换预览面板" id="fullscreen"></i>
+      </div>
+    </div>
+    <div class="ui-layout-center">
+      <div id="editor"></div> <!-- 编辑器 -->
+      <div class="remodal" id="emoji-modal" data-remodal-id="emoji-modal"> <!-- emoji 弹出框 -->
+        <h2>请输入 emoji 编码：</h2>
+        <p>例子："smile", "whale", "santa", "panda_face", "dog", "truck" ...</p>
+        <p>完整列表，请访问 <a href="http://www.emoji-cheat-sheet.com/" target="_blank">Emoji Cheat Sheet</a>。</p>
+        <p><input id="emoji-code" placeholder="smile"/></p>
+        <br/><a class="remodal-cancel">取消</a>
+        <a class="remodal-confirm" id="emoji-confirm">确定</a>
+      </div>
+      <div class="remodal" id="fa-modal" data-remodal-id="fa-modal"> <!-- Font Awesome 弹出框 -->
+        <h2>请输入 Font Awesome 编码：</h2>
+        <p>例子："cloud", "flag", "car", "truck", "heart", "dollar" ...</p>
+        <p>完整列表，请访问 <a href="http://fontawesome.io/icons/" target="_blank">Font Awesome 官网</a>。</p>
+        <p><input id="fa-code" placeholder="heart"/></p>
+        <br/><a class="remodal-cancel">取消</a>
+        <a class="remodal-confirm" id="fa-confirm">确定</a>
+      </div>
+      <div class="remodal" id="ion-modal" data-remodal-id="ion-modal"> <!-- Ionicons 弹出框 -->
+        <h2>请输入 Ionicons 编码：</h2>
+        <p>例子："beer", "key", "locked", "location", "plane", "ios-eye" ...</p>
+        <p>完整列表，请访问 <a href="http://ionicons.com/" target="_blank">Ionicons 官网</a>。</p>
+        <p><input id="ion-code" placeholder="beer"/></p>
+        <br/><a class="remodal-cancel">取消</a>
+        <a class="remodal-confirm" id="ion-confirm">确定</a>
+      </div>
+      <div class="remodal" id="ar-modal" data-remodal-id="ar-modal"> <!-- art reactor 弹出框 -->
+        <h2>请输入 Art Reactor 编码：</h2>
+        <p>例子："clock", "smile-a", "water", "qr-code", "dog", "coffee" ...</p>
+        <p>完整列表，请访问 <a href="http://chinakids.github.io/Art-Reactor/dome/index.html" target="_blank">Art Reactor图标列表</a>。</p>
+        <p><input id="ar-code" placeholder="clock"/></p>
+        <br/><a class="remodal-cancel">取消</a>
+        <a class="remodal-confirm" id="emoji-confirm">确定</a>
+      </div>
+      <div class="remodal" data-remodal-id="preferences-modal"> <!-- Preferences 弹出框 -->
+        <img src="icon.png" width="64"/>
+        <h2>Markdown Plus 首选项</h2>
+        <p>编辑器主题: <select id="editor-theme">
+          <option value="tomorrow_night_blue">蓝色</option>
+          <option value="tomorrow">浅色</option>
+          <option value="tomorrow_night_eighties">深色</option>
+          <option value="kuroir">灰色</option>
+        </select></p>
+        <p>编辑器字体大小: <select id="editor-font-size">
+          <option value="8">8px</option><option value="9">9px</option><option value="10">10px</option><option value="11">11px</option>
+          <option value="12">12px</option><option value="13">13px</option><option value="14">14px</option><option value="15">15px</option>
+          <option value="16">16px</option><option value="17">17px</option><option value="18">18px</option><option value="20">20px</option>
+          <option value="24">24px</option><option value="32">32px</option><option value="48">48px</option><option value="64">64px</option>
+        </select></p>
+        <p>按键绑定: <select id="key-binding">
+          <option value="default">默认</option>
+          <option value="emacs">Emacs</option>
+          <option value="vim">Vim</option>
+        </select></p>
+        <br/><a class="remodal-confirm">确定</a>
+      </div>
+      <div class="remodal" data-remodal-id="help-modal"> <!-- help 弹出框 -->
+        <img src="icon.png" width="64"/>
+        <h2>Markdown Plus 帮助</h2>
+        <p><a href="https://github.com/ajaxorg/ace/wiki/Default-Keyboard-Shortcuts" target="_blank">键盘快捷键</a></p>
+        <p><a href="https://guides.github.com/features/mastering-markdown/" target="_blank">Markdown 基础</a></p>
+        <p><a href="http://www.emoji-cheat-sheet.com/" target="_blank">Emoji 图标</a></p>
+        <p><a href="http://fontawesome.io/icons/" target="_blank">Font Awesome 图标</a></p>
+        <p><a href="http://ionicons.com/" target="_blank">Ionicons 图标</a></p>
+        <p><a href="http://chinakids.github.io/Art-Reactor/dome/index.html" target="_blank">Art Reactor 图标</a></p>
+        <p><a href="http://meta.wikimedia.org/wiki/Help:Displaying_a_formula" target="_blank">数学公式</a></p>
+        <p><a href="http://knsv.github.io/mermaid/flowchart.html" target="_blank">流程图语法</a></p>
+        <p><a href="http://knsv.github.io/mermaid/sequenceDiagram.html" target="_blank">顺序图语法</a></p>
+        <p><a href="http://knsv.github.io/mermaid/gantt.html" target="_blank">甘特图语法</a></p>
+        <br/><a class="remodal-confirm">确定</a>
+      </div>
+      <div class="remodal" data-remodal-id="about-modal"> <!-- about 弹出框 -->
+        <img src="icon.png" width="64"/>
+        <h2>Markdown Plus</h2> 版本 1.4.4
+        <p>功能丰富的 markdown 编辑器。</p>
+        <p>版权所有 © 2015 <a href="https://tylingsoft.com" target="_blank">Tylingsoft</a>。</p>
+        <p>软件主页: <a href="https://tylingsoft.com/mdp" target="_blank">https://tylingsoft.com/mdp</a>。</p>
+        <br/><a class="remodal-confirm">确定</a>
+      </div>
+    </div>
+    <div class="ui-layout-east">
+      <article class="markdown-body" id="preview" data-open-title="隐藏预览" data-closed-title="显示预览"></article> <!-- 实时预览 -->
+    </div>
+    <div class="ui-layout-south">
+      <ul class="edit-foot">
+        <li><a href="javascript:;" class="close">取消</a></li>
+        <li><a href="javascript:;" class="ok"><i class="fa fa-spinner fa-spin"></i>保存并退出</a></li>
+      </ul>
+    </div>
+  </body>
+  <script>
+  function getUrlMes() {
+    var locationStr = window.location.search,req={};
+    if (locationStr.indexOf("?") != -1) {
+       var str = locationStr.substr(1);
+       //console.log(str);
+       strs = str.split("&");
+       for(var i = 0; i < strs.length; i ++) {
+          req[strs[i].split("=")[0]] = strs[i].split("=")[1];
+       }
+    }
+    return req;
+  }
+  $(function(){
+    var oldContent = '';
+    $.get('/api/getContent?md='+getUrlMes().md, function(data) { // load sample text
+      editor.session.setValue(data.content, -1);
+      oldContent = data.content;
+      $('#title').html('<i class="fa fa-book"></i>'+data.title);
+    });
+    $('#fullscreen').click(function(){
+      $('.ui-layout-toggler-east').trigger('click');
+    })
+    if(typeof(top.dialog)=="function"){
+			var dialog = top.dialog.get(window);
+			$('.close').click( function () {
+        if(!confirm('文档尚未保存\n 是否确认退出？')){
+          return false;
+        }
+				dialog.close();
+				dialog.remove();
+			});
+		}
+    $('.ok').click(function(){
+      var _this = $(this);
+      _this.addClass('load');
+      var status = true,newContent=editor.session.getValue();
+      if(newContent == oldContent){
+          var dialog = top.dialog.get(window);
+  				dialog.close();
+  				dialog.remove();
+      }else{
+        if(status){
+          status = false;
+          //post
+          $.post('/api/saveBookContent',{
+            md      : getUrlMes().md,
+            content : newContent
+          },function(data){
+            console.log(data);
+            _this.removeClass('load');
+            var dialog = top.dialog.get(window);
+            dialog.close();
+            dialog.remove();
+          })
+          console.log(editor.session.getValue());
+        }
+      }
+
+    })
+  })
+  </script>
+</html>

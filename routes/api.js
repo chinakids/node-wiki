@@ -3,6 +3,7 @@ var router = express.Router();
 var fs = require('fs');
 var _ = require('underscore');
 var path = require('path');
+var http = require('http');
 
 var treeModel = require('../models/tree');
 var bookModel = require('../models/book');
@@ -122,6 +123,36 @@ router.get('/search', function(req, res, next) {
   })
   //res.status(200).send('api状态正常');
 });
-
+//api 获取源文件内容
+router.get('/getContent', function(req, res, next) {
+  //console.log(req.query.md);
+  var buffStr = fs.readFileSync(path.join(__dirname, '../doc/' + req.query.md + '.md'),
+    'utf8');
+  res.send({content:buffStr,title:req.query.md.split('/')[req.query.md.split('/').length - 1]+'.md'});
+  //res.status(200).send('api状态正常');
+});
+//api 保存文件数据
+router.post('/saveBookContent',function(req,res,next){
+  console.log(req.body);
+  console.log(decodeURI(path.join(__dirname, '../doc/' + req.body.md + '.md')));
+  fs.writeFile(decodeURI(path.join(__dirname, '../doc/' + req.body.md + '.md')), req.body.content, function(err){
+    if(err){
+      console.log(err);
+      res.send({status:0,info:'保存失败,请重试'})
+    }else{
+      //重写目录
+      http.request({
+          port: req.httpPort,
+          path: '/api/updataMenu',
+          method: 'GET'
+      }, function (res) {
+        console.log('保存且目录更新成功');
+      }).on('error', function (e) {
+        console.log('problem with request: ' + e.message);
+      }).end();
+      res.send({status:1,info:'保存成功'});
+    }
+  });
+})
 
 module.exports = router;

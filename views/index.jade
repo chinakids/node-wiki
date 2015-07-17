@@ -1,15 +1,15 @@
 extends layout
 
 block content
-  if !error 
+  if !error
     section.content-header
-      h1 
+      h1
         i.fa.fa-book   #{title}.md
       ol.breadcrumb
         li
           a(href='/')
-            i.fa.fa-dashboard 
-            |  主页      
+            i.fa.fa-dashboard
+            |  主页
         each item in map
           li.active #{item}
   section.content
@@ -23,16 +23,16 @@ block content
             !{html}
           if title != 'Wiki 文档中心'
             div.callout.callout-info.tools-bar
-              h4 
+              h4
                 i.fa.fa-paperclip
                 |  文档工具栏
               if loginInfo != false
-                a(href="javascript:;")
+                a.jq-edit(href='javascript:;',data-md='#{download}')
                   i.fa.fa-edit
                   |  编辑此文档
-              a(href="/download?md=#{download}",target='_blank')
-                i.fa.fa-download  
-                |  下载此文档 
+              a(href='/download?md=#{download}',target='_blank')
+                i.fa.fa-download
+                |  下载此文档
         div.row
           if title != 'Wiki 文档中心'
             div.col-sm-12
@@ -40,24 +40,24 @@ block content
                 div.box-header.with-border
                   h3.box-title #{title} - 贡献者名单
                 div.box-body
-                  a.btn.btn-primary.btn-sm(href="javascript:;") 
+                  a.btn.btn-primary.btn-sm(href="javascript:;")
                     i.fa.fa-code-fork  chinakids
         div.fix-menu
           div.title 文档目录
             i.fa.fa-list-ul.pull-right
           ul.clearfix
-            if menu.length > 0  
+            if menu.length > 0
               each item in menu
-                li 
-                  a(href="javascript:;",data-href="#menu-#{$index}",name="menu") 
-                    i.fa.fa-tag 
+                li
+                  a(href="javascript:;",data-href="#menu-#{$index}",name="menu")
+                    i.fa.fa-tag
                     | #{item}
             else
               li
                 a(href="javascript:;")
-                  i.fa.fa-circle-o 
+                  i.fa.fa-circle-o
                   | 暂无目录
             li
               a(href="javascript:;",data-href="#pr",name="menu")
-                i.fa.fa-star 
-                | 贡献者      
+                i.fa.fa-star
+                | 贡献者
