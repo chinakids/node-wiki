@@ -39,7 +39,7 @@ block layout
                             small #{loginInfo.email}
                       li.user-footer
                         .pull-left
-                          a.btn.btn-default.btn-flat(href='#')
+                          a.btn.btn-default.btn-flat(href='javascript:;')
                             i.fa.fa-gears  设置                 
                         .pull-right
                           a.btn.btn-default.btn-flat(href='/users/logout')
@@ -87,6 +87,9 @@ block layout
         footer.main-footer
           .pull-right.hidden-xs
             b By. 
-            a(href='http://github.com/chinskids') @Chinakids      
+            a(href='http://github.com/chinakids',target='_blank') @Chinakids
+            |  -   
+            b Fork 
+            a(href='http://github.com/chinakids/node-wiki',target='_blank') This program.      
           strong Copyright &copy; 2014-2015 
           |  All rights reserved.
