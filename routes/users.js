@@ -39,7 +39,7 @@ router.post('/login', function(req, res, next) {
         /* 设置登陆的cookie */
         res.cookie('name', user[0].userName , { maxAge: 60 * 1000 * 60 * 24 * 30 });
         res.cookie('email', user[0].email , { maxAge: 60 * 1000 * 60 * 24 * 30 , httpOnly: true});
-        res.cookie('name_sig', rule.md5(user[0].email+'this_is_mixin_string'+req.cookies['connect.id']) , { maxAge: 60 * 1000 * 60 * 24 * 30 , httpOnly: true});
+        res.cookie('name_sid', rule.md5(user[0].email+'this_is_mixin_string'+req.cookies['connect.id']) , { maxAge: 60 * 1000 * 60 * 24 * 30 , httpOnly: true});
         res.status(200).send({status:1,info:'登录成功',data:{name:user[0].userName}});
       }else{
         res.status(200).send({status:0,info:'帐号或密码错误'});
