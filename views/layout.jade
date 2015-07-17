@@ -5,7 +5,7 @@ block layout
     body.skin-blue.sidebar-mini
       .wrapper
         header.main-header
-          a.logo(href='./')
+          a.logo(href='/')
             span.logo-mini
               b W
               | iki
@@ -50,11 +50,11 @@ block layout
                       span.hidden-xs 登陆 / 注册
         aside.main-sidebar
           section.sidebar
-            form.sidebar-form(action='#', method='get')
+            form.sidebar-form(action='/api/search', method='get')
               .input-group
-                input.form-control(type='text', name='q', placeholder='Search...')
+                input.form-control(type='text', name='s', placeholder='Search...')
                 span.input-group-btn
-                  button#search-btn.btn.btn-flat(type='submit', name='search')
+                  button#search-btn.btn.btn-flat(type='submit')
                     i.fa.fa-search
             ul.sidebar-menu
               li.header Markdown 文档
@@ -74,30 +74,16 @@ block layout
                           ul.treeview-menu
                             each item3 in item2.files
                               li
-                                a(href='./book?md=#{item.pathName}/#{item2.pathName}/#{item3}',title='#{item3}')
+                                a(href='/book?md=#{item.pathName}/#{item2.pathName}/#{item3}',title='#{item3}')
                                   i.fa.fa-book  
                                   |  #{item3}
                       each item2 in item.files
                         li
-                          a(href='./book?md=#{item.pathName}/#{item2}',title='#{item2}')
+                          a(href='/book?md=#{item.pathName}/#{item2}',title='#{item2}')
                             i.fa.fa-book  
                             |  #{item2}
         .content-wrapper
-          if !error 
-            section.content-header
-              h1 
-                i.fa.fa-book   #{title}.md
-              ol.breadcrumb
-                li
-                  a(href='/')
-                    i.fa.fa-dashboard 
-                    |  主页      
-                each item in map
-                  li.active #{item}
-          section.content
-            div.row
-              div.col-xs-12
-                block content
+          block content
         footer.main-footer
           .pull-right.hidden-xs
             b By. 

@@ -1,9 +1,11 @@
 extends layout
 
 block content
-  body
-    div.callout.callout-danger
-      h2 
-        i.icon.fa.fa-ban
-        |  #{error.status} - #{title}
-      pre #{error.stack}
+  section.content
+    div.row
+      div.col-xs-12
+        div.callout.callout-danger
+          h2 
+            i.icon.fa.fa-ban
+            |  #{error.status} - #{title}
+          pre #{error.stack}

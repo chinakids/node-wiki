@@ -1,0 +1,17 @@
+extends layout
+
+block content
+  section.content
+    div.row
+      div.col-xs-12
+        each item in bookList
+          div.callout.callout-default
+            h4 
+              a(href='#{item.url}') #{item.name}
+            ol.breadcrumb
+              li
+                a(href='/')
+                  i.fa.fa-dashboard 
+                  |  主页      
+              each item2 in item.map
+                li.active #{item2}

@@ -5,6 +5,7 @@ var _ = require('underscore');
 var path = require('path');
 
 var treeModel = require('../models/tree');
+var bookModel = require('../models/book');
 /* API Route. */
 router.get('/', function(req, res, next) {
   //console.log('///////////////////////////')
@@ -12,6 +13,44 @@ router.get('/', function(req, res, next) {
 });
 /* API updataMenu. */
 router.get('/updataMenu', function(req, res, next) {
+  //书存入数据库的方法
+  function saveBook(name,path){
+    bookModel.findByUrl(path,function(err,book){
+      if(err){
+        console.log(err);
+      }
+      if(book.length <= 0){
+        //新建储存
+        var newBook = new bookModel({
+          name    : name,
+          path    : path,
+          map     : path.split('doc/')[1].split('/'),
+          url     : '/book?md='+path.split('doc/')[1].split('.')[0]
+        })
+        newBook.save(function(err,book){
+          if(err){
+            console.log(err)
+          }
+          console.log('新建一条书籍')
+        })
+      }else{
+        //更新储存（一个 URL 只会有一条）
+        var bookInfo = {
+          name    : name,
+          path    : path,
+          map     : path.split('doc/')[1].split('/'),
+          url     : '/book?md='+path.split('doc/')[1].split('.')[0]
+        }
+        var newBook = _.extend(book[0],bookInfo);
+        newBook.save(function(err,book){
+          if(err){
+            console.log(err)
+          }
+          console.log('修改一条书籍')
+        })
+      }
+    })
+  }
   var treeNode = {};
   //目录遍历
   function walk(path, treeNode, callback) {
@@ -31,6 +70,7 @@ router.get('/updataMenu', function(req, res, next) {
         if (item != '.DS_Store' && item != 'readme.md' && item.indexOf(
             '.md') !=
           -1) {
+          saveBook(item.split('.')[0],path + '/'+item);
           treeNode.files.push(item.split('.')[0]);
         }
       }
@@ -67,8 +107,20 @@ router.get('/updataMenu', function(req, res, next) {
 });
 //api search
 router.get('/search', function(req, res, next) {
-  //console.log('///////////////////////////')
-  res.status(200).send('api状态正常');
+  console.log(req.query.s);
+  bookModel.findByName(req.query.s,function(err,book){
+    if(err){
+      console.log(err)
+    }
+    console.log(book);
+    res.render('list', {
+      title: '搜索结果',
+      tree: req.tree,
+      loginInfo:req.loginInfo,
+      bookList : book
+    });
+  })
+  //res.status(200).send('api状态正常');
 });
 
 
