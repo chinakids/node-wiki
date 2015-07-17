@@ -159,7 +159,7 @@ router.post('/addFile',function(req,res,next){
       arr.pop();
       arr = arr.join('/');
   fs.exists(path.join(__dirname, '../doc'+arr), function(exists) {
-    console.log('exists:', exists);
+    console.log(req.httpPort);
     // => false
     if(!exists){
       //目录不存在先创建目录

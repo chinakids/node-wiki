@@ -2,6 +2,7 @@ var http = require('http');
 
 var updata = {
   menu : function(port){
+    console.log(port);
     http.request({
         port: port,
         path: '/api/updataMenu',
