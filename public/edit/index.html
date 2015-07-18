@@ -251,14 +251,16 @@ T3: 2014-01-02, 9d"></i>
             if(data.status == 1){
               _this.removeClass('load');
               $('.edit-foot .success').fadeIn(1000, function() {
-                $(this).hide();
-                var dialog = top.dialog.get(window);
-                dialog.close();
-                dialog.remove();
+                setTimeout(function(){
+                  $(this).hide();
+                  window.top.location.reload();
+                },1000)
               });
             }else{
-              $('.edit-foot .error').fadeIn(2000, function() {
-                $(this).hide();
+              $('.edit-foot .error').fadeIn(1000, function() {
+                setTimeout(function(){
+                  $(this).hide();
+                },1000)
               });
             }
           })

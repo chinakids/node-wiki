@@ -318,10 +318,7 @@ $(function() {
       width: parseInt($(window).width() * 0.95),
       height: parseInt($(window).height() * 0.9),
       zIndex: 100000,
-      fixed: true,
-      onremove: function () {
-        window.location.reload();
-      }
+      fixed: true
     })
     .showModal();
   })
