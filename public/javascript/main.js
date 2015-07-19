@@ -1,4 +1,8 @@
 $(function() {
+  //彩蛋
+  $.get('/info',function(data){
+    console.log(data);
+  })
   //初始化高亮
   var modelist = ace.require('ace/ext/modelist').modesByName;
   var highlight = ace.require('ace/ext/static_highlight');
