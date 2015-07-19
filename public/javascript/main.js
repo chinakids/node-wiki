@@ -79,15 +79,25 @@ $(function() {
     $('.fix-menu .title').trigger('click')
   }, 300)
 
+
+  //得到地址栏信息
+  function getUrlMes() {
+    var locationStr = window.location.search,req={};
+    if (locationStr.indexOf("?") != -1) {
+       var str = locationStr.substr(1);
+       //console.log(str);
+       strs = str.split("&");
+       for(var i = 0; i < strs.length; i ++) {
+          req[strs[i].split("=")[0]] = strs[i].split("=")[1];
+       }
+    }
+    return req;
+  }
   //侧目录初始化
   if (window.location.href.indexOf('/book?') != -1) {
-    var qs = location.search.split('?')[1].split('=')[1].split('/'),
-      length = qs.length;
-    for (var key = 0; key < length; key++) {
-      $('a[title="' + decodeURI(qs[key]) + '"]').addClass('active');
-      $('a[title="' + decodeURI(qs[key]) + '"]').parent('li').addClass(
-        'active');
-    }
+    $('a[title="' + decodeURI(getUrlMes().md) + '"]').addClass('active');
+    $('a[title="' + decodeURI(getUrlMes().md) + '"]').parents('li').addClass(
+      'active');
   } else {
     $('.sidebar-menu').find('.treeview').eq(0).addClass('active');
   }
@@ -326,7 +336,6 @@ $(function() {
   function getTreeArr(obj){
     for(var key in obj){
       treeArr.push(obj[key].path.split('/doc')[1]);
-      console.log(obj[key].subNodes.length);
       if(obj[key].subNodes.length>0){
         getTreeArr(obj[key].subNodes);
       }
