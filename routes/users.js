@@ -17,11 +17,11 @@ router.get('/', function(req, res, next) {
 router.get('/login', function(req, res, next) {
   //console.log('/login')
   //res.redirect('/');
-  console.log(req.loginInfo);
+  //console.log(req.headers.referer);
   if(req.loginInfo != false){
-    res.redirect('/../');
+    res.redirect(req.headers.referer || '/../');
   }else{
-    res.render('login', { title: '登陆' });
+    res.render('login', { title: '登陆' ,reUrl : req.headers.referer});
   }
   //console.log('login')
 });
@@ -51,7 +51,7 @@ router.post('/login', function(req, res, next) {
 router.get('/logout', function(req, res, next) {
   res.clearCookie('name');
   res.clearCookie('name_sig');
-  res.redirect('/../');
+  res.redirect(req.headers.referer);
 });
 /* 注册模块 */
 router.get('/register', function(req, res, next) {

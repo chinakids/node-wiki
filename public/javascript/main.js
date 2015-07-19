@@ -304,7 +304,7 @@ $(function() {
           setTimeout(function(){
             $('.callout').fadeOut(500,function(){
               $('.callout').remove();
-              window.location.href = './../';
+              window.location.href = reUrl || './../';
             });
           },2000)
         }
