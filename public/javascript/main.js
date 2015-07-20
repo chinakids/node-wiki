@@ -224,8 +224,9 @@ $(function() {
     }
   })
   $('#register button[name=submit]').click(function(){
+    console.log(registerFrom);
     for(var key in registerFrom){
-       if(registerFrom[key] == false){
+       if(registerFrom[key] === false){
          var html = '<div class="callout callout-danger"><p>请将信息填写完整</p></div>';
          $('#tip').append(html);
          setTimeout(function(){

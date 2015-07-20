@@ -21,7 +21,11 @@ router.get('/login', function(req, res, next) {
   if(req.loginInfo != false){
     res.redirect(req.headers.referer || '/../');
   }else{
-    res.render('login', { title: '登陆' ,reUrl : req.headers.referer});
+    if(req.headers.referer.indexOf('register') == -1){
+      res.render('login', { title: '登陆' ,reUrl : '/../'});
+    }else{
+      res.render('login', { title: '登陆' ,reUrl : req.headers.referer});
+    }
   }
   //console.log('login')
 });
