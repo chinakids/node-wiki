@@ -10,7 +10,7 @@ var rule = require('./tools/rule');
 var updata = require('./tools/updata');
 var mongoose = require('mongoose');
 var treeModel = require('./models/tree');
-var usermodel = require('./models/users');
+var userModel = require('./models/users');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -48,7 +48,7 @@ app.post(/^\/*/,function(req, res, next){
       singename = req.cookies['name_sig'];
   if(rule.pw(email,connectid,singename)){
     //获取用户信息并传递
-    usermodel.findByEmail(email,function(err,user){
+    userModel.findByEmail(email,function(err,user){
       if(err){
         console.log(err);
       };
@@ -70,14 +70,19 @@ app.get(/^\/*/,function(req, res, next){
     if(err){
       console.log(err);
     }
-    req.tree = tree[0].tree;
+    console.log(tree);
+    if(tree.length <= 0){
+      req.tree = [];
+    }else{
+      req.tree = tree[0].tree;
+    }
     //判断登陆
     var email = req.cookies['email'],
         connectid = req.cookies['connect.id'],
         singename = req.cookies['name_sig'];
     if(rule.pw(email,connectid,singename)){
       //获取用户信息并传递
-      usermodel.findByEmail(email,function(err,user){
+      userModel.findByEmail(email,function(err,user){
         if(err){
           console.log(err);
         };
