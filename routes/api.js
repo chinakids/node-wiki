@@ -86,7 +86,7 @@ router.get('/updataMenu', function(req, res, next) {
       }
       //console.log(_list);
       if(tree.length<=0){
-        _tree = new menuModel({
+        _tree = new treeModel({
           tree   :  treeNode
         })
         _tree.save(function(err, tree){
