@@ -47,6 +47,7 @@ Function name | Description
 [Task Lists Syntax](https://help.github.com/articles/writing-on-github/#task-lists)
 
 
+
 ## Emojis
 
 <img src="/lib/emoji-icons/smile.png" width="64"/>
