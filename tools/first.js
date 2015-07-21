@@ -3,13 +3,12 @@
  */
 'use strict';
 var fs = require('fs');
-
 var first = {
-  getConfig : function(str){
+  getConfig : function(){
 
   },
-  setConfig : function(name,sid,singeStr){
-    
+  setConfig : function(){
+
   }
 }
 module.exports = first;
