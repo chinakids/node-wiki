@@ -10,6 +10,7 @@ var querystring = require('querystring');
 var _ = require('underscore');
 var mongoose = require('mongoose');
 var usermodel = require('../models/users');
+var updata = require('../tools/updata');
 
 var template = fs.readFileSync(path.join(__dirname, '../config/config.js'),
     'utf8');
@@ -50,6 +51,7 @@ router.post('/addDb', function(req, res, next) {
   }else{
     console.log('加密登入')
     mongoose.connect('mongodb://'+dbUsername+':'+dbPassword+'@'+dbIp.split('/')[0]+':'+dbPort+'/'+dbName);
+    updata.menu();
     res.send({status:1,info:'数据库配置完成',url:'./second'})
   }
   //res.status(200).send({n:template});
@@ -89,10 +91,10 @@ router.post('/addAdmin', function(req, res, next) {
             console.log(err);
             res.send({status:0,info:'发生未知错误'})
           }else{
-            res.send({status:1,info:'数据库配置完成'})
+            res.send({status:1,info:'初始化完成',url:'./'})
           }
         })
-        res.send({status:1,info:'注册成功',url:'./'});
+        //res.send({status:1,info:'注册成功',url:'./'});
       })
     }else{
       res.send({status:0,info:'邮箱已被注册'});

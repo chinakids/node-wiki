@@ -43,6 +43,14 @@ if(!config.isFirst){
   //首次初始化
   console.log('首次')
   var first = require('./routes/first');
+  app.post(/^\/*/,function(req, res, next){
+    req.httpPort = port;
+    next();
+  })
+  app.get(/^\/*/,function(req, res, next){
+    req.httpPort = port;
+    next();
+  })
   app.use('/', first);
 }else{
   var index = require('./routes/index');
