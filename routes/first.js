@@ -97,7 +97,28 @@ router.post('/addAdmin', function(req, res, next) {
         //res.send({status:1,info:'注册成功',url:'./'});
       })
     }else{
-      res.send({status:0,info:'邮箱已被注册'});
+      //存在的话更新为超级用户
+      _user = {
+        userName   : userObj.name,
+        passWord   : userObj.password,
+        email      : userObj.email,
+        role       : 99,
+        admin      : true
+      };
+      _user = _.extend(user[0],_user);
+      _user.save(function(err, user){
+        if(err){
+          console.log(err);
+        }
+        fs.writeFile(path.join(__dirname, '../config/config.js'), template, function(err){
+          if(err){
+            console.log(err);
+            res.send({status:0,info:'发生未知错误'})
+          }else{
+            res.send({status:1,info:'初始化完成',url:'./'})
+          }
+        })
+      })
     }
   })
 });
