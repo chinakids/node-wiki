@@ -16,14 +16,12 @@ var index = require('./routes/index');
 var users = require('./routes/users');
 var api = require('./routes/api');
 
+var config = require('./config/config')
+
 var app = express();
 
 var port = 3013;
 
-
-mongoose.connect('mongodb://127.0.0.1:27017/wiki');
-
-updata.menu(port);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -40,43 +38,25 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'doc')));
 
-//需要的参数先处理好
-app.post(/^\/*/,function(req, res, next){
-  req.httpPort = port;
-  var email = req.cookies['email'],
-      connectid = req.cookies['connect.id'],
-      singename = req.cookies['name_sig'];
-  if(rule.pw(email,connectid,singename)){
-    //获取用户信息并传递
-    userModel.findByEmail(email,function(err,user){
-      if(err){
-        console.log(err);
-      };
-      if(user.length <=0){
-        req.loginInfo = false;
-      }else{
-        req.loginInfo = user[0];
-      }
-      next(); // 将控制转向下一个符合URL的路由
-    });
+if(!config.isFirst){
+  //首次初始化
+}else{
+  //正常启动
+  if(/[\w\W]+/.test(config.dbUsername)){
+    //口令登陆
+    console.log('加密登入')
+    mongoose.connect('mongodb://'+config.dbUsername+':'+config.dbPassword+'@'+config.dbIp.split('/')[0]+':'+config.dbPort+'/'+config.dbName);
   }else{
-    req.loginInfo = false;
-    next(); // 将控制转向下一个符合URL的路由
+    //空口令登陆
+    console.log('空口令登入')
+    mongoose.connect('mongodb://'+config.dbIp.split('/')[0]+':'+config.dbPort+'/'+config.dbName);
   }
-});
-app.get(/^\/*/,function(req, res, next){
-  //读取目录
-  treeModel.fetch(function(err,tree){
-    if(err){
-      console.log(err);
-    }
-    console.log(tree);
-    if(tree.length <= 0){
-      req.tree = [];
-    }else{
-      req.tree = tree[0].tree;
-    }
-    //判断登陆
+
+  updata.menu(port);
+
+  //需要的参数先处理好
+  app.post(/^\/*/,function(req, res, next){
+    req.httpPort = port;
     var email = req.cookies['email'],
         connectid = req.cookies['connect.id'],
         singename = req.cookies['name_sig'];
@@ -97,12 +77,48 @@ app.get(/^\/*/,function(req, res, next){
       req.loginInfo = false;
       next(); // 将控制转向下一个符合URL的路由
     }
-  })
-});
+  });
+  app.get(/^\/*/,function(req, res, next){
+    //读取目录
+    treeModel.fetch(function(err,tree){
+      if(err){
+        console.log(err);
+      }
+      console.log(tree);
+      if(tree.length <= 0){
+        req.tree = [];
+      }else{
+        req.tree = tree[0].tree;
+      }
+      //判断登陆
+      var email = req.cookies['email'],
+          connectid = req.cookies['connect.id'],
+          singename = req.cookies['name_sig'];
+      if(rule.pw(email,connectid,singename)){
+        //获取用户信息并传递
+        userModel.findByEmail(email,function(err,user){
+          if(err){
+            console.log(err);
+          };
+          if(user.length <=0){
+            req.loginInfo = false;
+          }else{
+            req.loginInfo = user[0];
+          }
+          next(); // 将控制转向下一个符合URL的路由
+        });
+      }else{
+        req.loginInfo = false;
+        next(); // 将控制转向下一个符合URL的路由
+      }
+    })
+  });
+  app.use('/', index);
+  app.use('/users', users);
+  app.use('/api', api);
+}
 
-app.use('/', index);
-app.use('/users', users);
-app.use('/api', api);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

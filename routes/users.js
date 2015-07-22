@@ -76,7 +76,8 @@ router.post('/register', function(req, res, next) {
         userName   : userObj.name,
         passWord   : userObj.password,
         email      : userObj.email,
-        role       : userObj.role
+        role       : userObj.role,
+        admin      : false
       })
       _user.save(function(err, user){
         if(err){
