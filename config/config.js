@@ -1,5 +1,5 @@
 var config = {
-  //端口地址
+  //数据库端口
   dbPort: 27017,
   //数据库类型
   db:'mongodb',
@@ -12,6 +12,6 @@ var config = {
   //数据库密码
   dbPassword:'',
   //是否初始化过
-  isFirst:false
+  isFirst: true
 }
 module.exports = config;

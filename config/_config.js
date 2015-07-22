@@ -4,7 +4,7 @@ var config = {
   //数据库类型
   db:'mongodb',
   //数据库地址
-  dbIp:'#{{dbAddress}}',
+  dbIp:'#{{dbIp}}',
   //数据库名
   dbName:'#{{dbName}}',
   //数据库用户名

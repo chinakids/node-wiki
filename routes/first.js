@@ -8,44 +8,61 @@ var session = require('express-session');
 var rule = require('../tools/rule');
 var querystring = require('querystring');
 var _ = require('underscore');
+var mongoose = require('mongoose');
 var usermodel = require('../models/users');
 
-var db;
+var template = fs.readFileSync(path.join(__dirname, '../config/config.js'),
+    'utf8');
 /* GET First page. */
 router.get('/', function(req, res, next) {
-  console.log(req);
-  //res.send('卧槽');
-  if(req.query.p == 2){
-    console.log('第二步')
-    //第二步（设置超级管理员帐号）
-    res.render('register', { title: '设置管理员帐号' });
-  }else{
-    console.log('第一步')
-    //其余判断为第一步（新建数据库的页面）
-    res.render('first', { title: '初始化' });
-  }
+  console.log('第一步')
+  //其余判断为第一步（新建数据库的页面）
+  res.render('first', { title: '初始化' });
 });
-router.post('/first/addDb', function(req, res, next) {
-  var template = fs.fs.readFileSync(path.join(__dirname, '../config/_config.js'),
+router.get('/second', function(req, res, next) {
+  //第二步（设置超级管理员帐号）
+  console.log('admin')
+  //console.log(res)
+  res.render('register', { title: '初始化' });
+});
+router.post('/addDb', function(req, res, next) {
+  console.log('操作配置')
+  template = fs.readFileSync(path.join(__dirname, '../config/_config.js'),
     'utf8');
-  template.replace('#{{dbPort}}',req.body.dbPort);
-  template.replace('#{{dbAddress}}',req.body.dbAddress);
-  template.replace('#{{dbName}}',req.body.dbName);
-  template.replace('#{{dbUsername}}',req.body.dbUsername);
-  template.replace('#{{dbPassword}}',req.body.dbPassword);
-  template.replace('#{{first}}',false);
+  template = template.replace('#{{dbPort}}',req.body.dbPort || 27017);
+  template = template.replace('#{{dbIp}}',req.body.dbIp || '127.0.0.1');
+  template = template.replace('#{{dbName}}',req.body.dbName || 'wiki');
+  template = template.replace('#{{dbUsername}}',req.body.dbUsername || '');
+  template = template.replace('#{{dbPassword}}',req.body.dbPassword || '');
+  template = template.replace('#{{first}}',true);
   console.log(template);
-  fs.writeFile(path.join(__dirname, '../config/config.js'), template, function(err){
-    if(err){
-      console.log(err);
-      res.send({status:0,info:'发生未知错误'})
-    }else{
-      res.send({status:1,info:'数据库配置完成'})
-    }
-  })
-  res.send()
+  var dbPort = req.body.dbPort || 27017,
+      dbIp = req.body.dbIp || '127.0.0.1',
+      dbName = req.body.dbName || 'wiki',
+      dbUsername = req.body.dbUsername || '',
+      dbPassword = req.body.dbPassword || '';
+  //res.send({status:1,info:'数据库配置完成',url:'./second'})
+  if(dbUsername == '' || dbPassword == ''){
+    console.log('空口令登入')
+    console.log('mongodb://'+dbIp.split('/')[0]+':'+dbPort+'/'+dbName);
+    mongoose.connect('mongodb://'+dbIp.split('/')[0]+':'+dbPort+'/'+dbName);
+    res.send({status:1,info:'数据库配置完成',url:'./second'})
+  }else{
+    console.log('加密登入')
+    mongoose.connect('mongodb://'+dbUsername+':'+dbPassword+'@'+dbIp.split('/')[0]+':'+dbPort+'/'+dbName);
+    res.send({status:1,info:'数据库配置完成',url:'./second'})
+  }
+  //res.status(200).send({n:template});
+  // fs.writeFile(path.join(__dirname, '../config/config.js'), template, function(err){
+  //   if(err){
+  //     console.log(err);
+  //     res.send({status:0,info:'发生未知错误'})
+  //   }else{
+  //     res.send({status:1,info:'数据库配置完成'})
+  //   }
+  // })
 });
-router.post('/first/addAdmin', function(req, res, next) {
+router.post('/addAdmin', function(req, res, next) {
   var userObj = req.body;
   var _user;
   userObj.password = rule.md5(userObj.password);
@@ -60,14 +77,22 @@ router.post('/first/addAdmin', function(req, res, next) {
         userName   : userObj.name,
         passWord   : userObj.password,
         email      : userObj.email,
-        role       : userObj.role,
+        role       : 99,
         admin      : true
       })
       _user.save(function(err, user){
         if(err){
           console.log(err);
         }
-        res.send({status:1,info:'注册成功'});
+        fs.writeFile(path.join(__dirname, '../config/config.js'), template, function(err){
+          if(err){
+            console.log(err);
+            res.send({status:0,info:'发生未知错误'})
+          }else{
+            res.send({status:1,info:'数据库配置完成'})
+          }
+        })
+        res.send({status:1,info:'注册成功',url:'./'});
       })
     }else{
       res.send({status:0,info:'邮箱已被注册'});

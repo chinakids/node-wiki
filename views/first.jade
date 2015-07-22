@@ -11,18 +11,20 @@ block layout
         p.login-box-msg 请输入相关信息进入下一步(1/2)
         form#addDb
           .form-group.has-feedback
-            input.form-control(type='text',name='dbPort',placeholder='数据库端口端口')
+            input.form-control(type='text',name='dbPort',placeholder='数据库端口端口(默认27017)')
+            span.glyphicon.glyphicon-eye-open.form-control-feedback
+          .form-group.has-feedback
+            input.form-control(type='text',name='dbIp',placeholder='数据库地址(Ip或域名,默认127.0.0.1)')
+            span.glyphicon.glyphicon-hdd.form-control-feedback
+          .form-group.has-feedback
+            input.form-control(type='text',name='dbName',placeholder='数据库名(可为空,默认\'wiki\')')
+            span.glyphicon.glyphicon-tasks.form-control-feedback
+          .form-group.has-feedback
+            input.form-control(type='text',name='dbUsername',placeholder='数据库用户名(可为空,默认空)')
             span.glyphicon.glyphicon-user.form-control-feedback
           .form-group.has-feedback
-            input.form-control(type='text',name='dbAddress',placeholder='数据库地址(Ip或域名)')
-            span.glyphicon.glyphicon-envelope.form-control-feedback
-          .form-group.has-feedback
-            input.form-control(type='text',name='dbName',placeholder='数据库用户名(可为空)')
+            input.form-control(type='password',name='dbPassword',placeholder='数据库密码(可为空,默认空)')
             span.glyphicon.glyphicon-lock.form-control-feedback
-          .form-group.has-feedback
-            input.form-control(type='password',name='dbPassword',placeholder='数据库密码(可为空)')
-            span.glyphicon.glyphicon-log-in.form-control-feedback
           .form-group.has-feedback#tip
           .form-group.has-feedback
             button.btn.btn-primary.btn-block.btn-flat(type='button',name='submit')  下一步
-  script(src='/javascript/first.js')

@@ -44,18 +44,6 @@ if(!config.isFirst){
   console.log('首次')
   var first = require('./routes/first');
   app.use('/', first);
-  // app.use(function(req, res, next) {
-  //   var err = new Error('Not Found');
-  //   err.status = 404;
-  //   next(err);
-  // });
-  // app.use(function(err, req, res, next) {
-  //   res.status(err.status || 500);
-  //   // res.render('first', {
-  //   //   title: '注册',
-  //   //   error: {}
-  //   // });
-  // });
 }else{
   var index = require('./routes/index');
   var users = require('./routes/users');
@@ -70,7 +58,7 @@ if(!config.isFirst){
     console.log('空口令登入')
     mongoose.connect('mongodb://'+config.dbIp.split('/')[0]+':'+config.dbPort+'/'+config.dbName);
   }
-
+  //更新目录
   updata.menu(port);
 
   //需要的参数先处理好
@@ -135,6 +123,7 @@ if(!config.isFirst){
   app.use('/users', users);
   app.use('/api', api);
 }
+//出错的处理
 app.use(function(req, res, next) {
     var err = new Error('Not Found');
     err.status = 404;

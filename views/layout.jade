@@ -41,6 +41,9 @@ block layout
                           if loginInfo.role == 3
                             p #{loginInfo.userName} - 项目管理
                               small #{loginInfo.email}
+                          if loginInfo.role == 99
+                            p #{loginInfo.userName} - 超级管理员
+                              small #{loginInfo.email}
                         li.user-footer
                           .pull-left
                             a.btn.btn-default.btn-flat(href='javascript:;')
