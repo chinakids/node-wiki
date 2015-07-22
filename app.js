@@ -12,9 +12,7 @@ var mongoose = require('mongoose');
 var treeModel = require('./models/tree');
 var userModel = require('./models/users');
 
-var index = require('./routes/index');
-var users = require('./routes/users');
-var api = require('./routes/api');
+
 
 var config = require('./config/config')
 
@@ -38,9 +36,30 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'doc')));
 
+
+
+
 if(!config.isFirst){
   //首次初始化
+  console.log('首次')
+  var first = require('./routes/first');
+  app.use('/', first);
+  // app.use(function(req, res, next) {
+  //   var err = new Error('Not Found');
+  //   err.status = 404;
+  //   next(err);
+  // });
+  // app.use(function(err, req, res, next) {
+  //   res.status(err.status || 500);
+  //   // res.render('first', {
+  //   //   title: '注册',
+  //   //   error: {}
+  //   // });
+  // });
 }else{
+  var index = require('./routes/index');
+  var users = require('./routes/users');
+  var api = require('./routes/api');
   //正常启动
   if(/[\w\W]+/.test(config.dbUsername)){
     //口令登陆
@@ -84,7 +103,6 @@ if(!config.isFirst){
       if(err){
         console.log(err);
       }
-      console.log(tree);
       if(tree.length <= 0){
         req.tree = [];
       }else{
@@ -117,45 +135,26 @@ if(!config.isFirst){
   app.use('/users', users);
   app.use('/api', api);
 }
-
-
-
-// catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
-});
-
-// error handlers
-
-// development error handler
-// will print stacktrace
-if (app.get('env') === 'development') {
-  app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err);
+  });
+app.use(function(err, req, res, next) {
+  res.status(err.status || 500);
+  if(!config.isFirst){
+    res.redirect('/');
+  }else{
     res.render('error', {
       title: err.message,
-      error: err,
+      error: {},
       map:[],
       tree: req.tree,
       loginInfo:req.loginInfo
     });
-  });
-}
-
-// production error handler
-// no stacktraces leaked to user
-app.use(function(err, req, res, next) {
-  res.status(err.status || 500);
-  res.render('error', {
-    title: err.message,
-    error: {},
-    map:[],
-    tree: req.tree,
-    loginInfo:req.loginInfo
-  });
+  }
 });
+
 
 app.listen(port);
 

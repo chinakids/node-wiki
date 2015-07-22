@@ -60,7 +60,7 @@ router.get('/updataMenu', function(req, res, next) {
     treeNode.subNodes = [];
     treeNode.files = [];
     treeNode.pathName = path.split('/')[path.split('/').length - 1];
-    console.log(path);
+    //console.log(path);
     var dirList = fs.readdirSync(path);
     dirList.forEach(function(item) {
       if (fs.statSync(path + '/' + item).isDirectory()) {

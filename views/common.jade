@@ -24,8 +24,12 @@ html
 
   if title != '登陆'
     if title != '注册'
-      script.
-        var tree = !{JSON.stringify(tree.subNodes)};
+      if title != '初始化'
+        script.
+          var tree = !{JSON.stringify(tree.subNodes)};
+      else
+        script.
+          var tree = [];
     else
       script.
         var tree = [];

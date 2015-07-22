@@ -1,12 +1,12 @@
 var config = {
   //数据库端口
-  dbPort: 27017,
+  dbPort: #{{dbPort}},
   //数据库类型
   db:'mongodb',
   //数据库地址
   dbIp:'#{{dbAddress}}',
   //数据库名
-  dbName:'#{{dbName}}'
+  dbName:'#{{dbName}}',
   //数据库用户名
   dbUsername:'#{{dbUsername}}',
   //数据库密码
