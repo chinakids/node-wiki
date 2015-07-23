@@ -11,6 +11,7 @@ var _ = require('underscore');
 var mongoose = require('mongoose');
 var usermodel = require('../models/users');
 var updata = require('../tools/updata');
+var render = require('../tools/render');
 
 var template = fs.readFileSync(path.join(__dirname, '../config/config.js'),
     'utf8');
@@ -18,13 +19,13 @@ var template = fs.readFileSync(path.join(__dirname, '../config/config.js'),
 router.get('/', function(req, res, next) {
   console.log('第一步')
   //其余判断为第一步（新建数据库的页面）
-  res.render('first', { title: '初始化' });
+  render.first(res,{ title: '初始化' });
 });
 router.get('/second', function(req, res, next) {
   //第二步（设置超级管理员帐号）
   console.log('admin')
   //console.log(res)
-  res.render('register', { title: '初始化' });
+  render.register(res,{ title: '初始化' });
 });
 router.post('/addDb', function(req, res, next) {
   console.log('操作配置')

@@ -6,6 +6,7 @@ var rule = require('../tools/rule');
 var querystring = require('querystring');
 var _ = require('underscore');
 var usermodel = require('../models/users');
+var render = require('../tools/render');
 
 var router = express.Router();
 
@@ -22,9 +23,9 @@ router.get('/login', function(req, res, next) {
     res.redirect(req.headers.referer || '/../');
   }else{
     if(req.headers.referer.indexOf('register') != -1){
-      res.render('login', { title: '登陆' ,reUrl : '/../'});
+      render.login(res,{ title: '登陆' ,reUrl : '/../'});
     }else{
-      res.render('login', { title: '登陆' ,reUrl : req.headers.referer});
+      render.login(res,{ title: '登陆' ,reUrl : req.headers.referer});
     }
   }
   //console.log('login')
@@ -59,7 +60,7 @@ router.get('/logout', function(req, res, next) {
 });
 /* 注册模块 */
 router.get('/register', function(req, res, next) {
-  res.render('register', { title: '注册' });
+  render.register(res,{ title: '注册' });
 });
 router.post('/register', function(req, res, next) {
   var userObj = req.body;

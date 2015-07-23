@@ -11,7 +11,7 @@ var updata = require('./tools/updata');
 var mongoose = require('mongoose');
 var treeModel = require('./models/tree');
 var userModel = require('./models/users');
-
+var render = require('./tools/render')
 
 
 var config = require('./config/config')
