@@ -142,7 +142,7 @@ app.use(function(err, req, res, next) {
   if(!config.isFirst){
     res.redirect('/');
   }else{
-    res.render('error', {
+    render.error(res, {
       title: err.message,
       error: {},
       map:[],

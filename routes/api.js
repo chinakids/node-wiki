@@ -26,7 +26,7 @@ router.get('/search', function(req, res, next) {
       console.log(err)
     }
     //book = book == [] ? null : book
-    res.render('list', {
+    render.list(res, {
       title: '搜索结果',
       tree: req.tree,
       loginInfo:req.loginInfo,
