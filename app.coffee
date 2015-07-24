@@ -13,6 +13,7 @@ userModel = require './models/users'
 render = require './tools/render'
 config = require './config/config'
 
+
 app = express()
 
 port = 3013
@@ -23,6 +24,7 @@ app.set 'view engine', 'jade'
 
 # uncomment after placing your favicon in /public
 #app.use(favicon(__dirname + '/public/favicon.ico'));
+app.use logger('dev')
 app.use bodyParser.json()
 app.use bodyParser.urlencoded
   extended: false
@@ -30,6 +32,7 @@ app.use bodyParser.urlencoded
 app.use cookieParser()
 app.use express.static path.join(__dirname, 'public')
 app.use express.static path.join(__dirname, 'doc')
+
 
 if not config.isFirst
   #首次初始化
