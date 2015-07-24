@@ -45,7 +45,7 @@ router.post '/login', (req, res, next) ->
           status:0
           info:'帐号或密码错误'
     else
-      if rule.md5 req.body.password is user[0].passWord
+      if rule.md5(req.body.password) is user[0].passWord
         # 设置登陆的cookie
         res.cookie 'name',
           user[0].userName ,

@@ -25,6 +25,13 @@ block layout
           .form-group.has-feedback
             input.form-control(type='password',name='repassword',placeholder='再次输入密码')
             span.glyphicon.glyphicon-log-in.form-control-feedback
+          if title != '初始化'
+            select.form-control(name='role')
+              option(value='-1') 请选择用户角色
+              option(value='0') 开发人员
+              option(value='1') 产品经理
+              option(value='2') 测试人员
+              option(value='3') 项目管理
           .form-group.has-feedback#tip
           .form-group.has-feedback
             button.btn.btn-primary.btn-block.btn-flat(type='button',name='submit')  注 册
