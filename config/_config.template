@@ -1,0 +1,17 @@
+config =
+  #数据库端口
+  dbPort: #{{dbPort}}
+  #数据库类型
+  db:'mongodb'
+  #数据库地址
+  dbIp:'#{{dbIp}}'
+  #数据库名
+  dbName:'#{{dbName}}'
+  #数据库用户名
+  dbUsername:'#{{dbUsername}}'
+  #数据库密码
+  dbPassword:'#{{dbPassword}}'
+  #是否初始化过
+  isFirst: #{{first}}
+  
+module.exports = config
