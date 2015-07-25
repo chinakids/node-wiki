@@ -29,7 +29,11 @@
 
 - 3、 `bower install`
 
-- 3、 `supervisor app.js` or `pm2 start app.js --watch`  如使用 node启动，初次安装后需要手动重启服务器
+- 3、  多线程启动 `supervisor clusterMaster.coffee` or `pm2 start clusterMaster.coffee --watch`  
+
+      单线程启动 `coffee app.coffee`
+
+      如使用 node启动，初次安装后需要手动重启服务器
 
 
 ###2.备注

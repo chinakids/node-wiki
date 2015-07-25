@@ -4,7 +4,7 @@
   "authors": [
     "Chinakids <494063570@qq.com>"
   ],
-  "main": "app.js",
+  "main": "clusterMaster.coffee",
   "keywords": [
     "markdown",
     "editor",
