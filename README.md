@@ -29,16 +29,16 @@
 
 - 3、 `bower install`
 
-- 3、  多线程启动 `supervisor clusterMaster.coffee` or `pm2 start clusterMaster.coffee --watch`  
+- 4、  多线程启动 `supervisor clusterMaster.coffee` or `pm2 start clusterMaster.coffee --watch`  
 
-      单线程启动 `coffee app.coffee`
+       单线程启动 `coffee app.coffee`
 
-      如使用 node启动，初次安装后需要手动重启服务器
+       如使用 node启动，初次安装后需要手动重启服务器
 
 
 ###2.备注
 
--   1.可能需要修改mongodb连接地址，请在app.js中修改
+-   1.可能需要修改PORT，请在app.coffee中修改，数据库连接相关参数可以在欢迎页面设置，或者在 config/config.coffee 中设置
 
 -   2.数据库字段配置请参照schemas目录文件
 
