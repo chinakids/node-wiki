@@ -27,6 +27,10 @@ block content
                 a.jq-edit(href='javascript:;',data-md='#{download}')
                   i.fa.fa-edit
                   |  编辑此文档
+                if loginInfo.admin
+                  a(href='/delete?md=#{download}')
+                    i.fa.fa-trash
+                    |  删除此文档
               a(href='/download?md=#{download}',target='_blank')
                 i.fa.fa-download
                 |  下载此文档
