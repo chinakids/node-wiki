@@ -1,9 +1,11 @@
 # node-wiki
 
+<img src='https://github.com/chinakids/node-wiki/raw/master/icon.png' width='150' />
+
 :green_book:一个基于nodejs 的 wiki 知识管理系统，文档保存使用 markdown
 
 
-[![npm version](https://badge.fury.io/js/engine.io.svg)](http://badge.fury.io/js/engine.io)
+[![npm version](https://badge.fury.io/js/npm.svg)](http://badge.fury.io/js/npm)
 
 
 ### 预览
