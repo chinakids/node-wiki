@@ -1,6 +1,6 @@
 # Node Wiki - 一个 nodejs 的 markdown 在线管理和编辑工具
 
-<img src='https://github.com/chinakids/node-wiki/raw/master/markdown-logo.png' height='150' align='left'/>
+<img src='https://chinakids.github.io/PicturesStore/image/node-wiki/markdown-logo.png' height='150' align='left'/>
 :green_book:一个基于nodejs 的 wiki 知识管理系统，文档保存使用 markdown，数据库使用 mongodb，采用多线程技术，jade 模板技术(经过了预编译)，
 markdown 扩展流程图、函数、甘特图、顺序图等工具图语法；还扩展了 emoji、Art-reactor、font-awesome、ionicons等图标，极大的增强了可用性。
 文档库支持关键字检索（目前只支持文件检索,后期将支持全文检索）
