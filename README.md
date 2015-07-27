@@ -31,7 +31,7 @@
 
 - 3、 `bower install`
 
-- 4、  多线程启动 `supervisor clusterMaster.coffee` or `pm2 start clusterMaster.coffee --watch`  
+- 4、  多线程启动 `supervisor start.coffee` or `pm2 start start.coffee --watch`  
 
        单线程启动 `coffee app.coffee`
 
