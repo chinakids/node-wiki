@@ -411,6 +411,8 @@ $(function() {
   })
   $(document).on('click','.add-box .btn-ok',function(){
     var out = $('#choose-path').val()  + $('#in-path').val();
+    //过滤隐藏字符
+    out = out.replace(/\s/g,'');
     var obj = {
       file : out,
       newMenu:$('#in-path').val().indexOf('/')
@@ -428,6 +430,11 @@ $(function() {
     if(out.split('/').length<=2){
       $('#in-path').parent().parent('.form-group').addClass('has-error');
       $('#in-path').val('').attr('placeholder','根目录只能创建文件夹');
+      return false;
+    }
+    if(out[out.length - 1] == '/'){
+      $('#in-path').parent().parent('.form-group').addClass('has-error');
+      $('#in-path').val('').attr('placeholder','文件名不可为空');
       return false;
     }
     var status =true;
@@ -456,5 +463,18 @@ $(function() {
         }
       })
     }
+  })
+
+  //删除图书
+  $('.jq-rmbook').click(function(){
+    var md= $(this).attr('data-md');
+    $.get('./delete?md='+md,function(data){
+      console.log(data);
+      if(data.status == 1){
+        window.location.href = '/'
+      }else{
+        alert('删除出错');
+      }
+    })
   })
 })
