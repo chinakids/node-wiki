@@ -1,0 +1,16 @@
+sudo: false
+language: node_js
+os:
+  - linux
+  - osx
+node_js:
+  - '0.12'
+  - '0.10'
+services:
+  - mongodb
+before_script:
+  - npm install -g grunt-cli
+  - npm install -g pm2
+  - npm install
+script:
+  - pm2 start start.js
