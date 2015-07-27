@@ -1,4 +1,4 @@
-# Node-Wiki,一个 nodejs 的 markdown 在线管理和编辑工具
+# Node Wiki - 一个 nodejs 的 markdown 在线管理和编辑工具
 
 <img src='https://github.com/chinakids/node-wiki/raw/master/icon.png' width='150' />
 
