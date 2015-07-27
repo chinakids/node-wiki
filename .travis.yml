@@ -10,6 +10,7 @@ services:
   - mongodb
 before_script:
   - npm install -g grunt-cli
+  - npm install -g coffee-script
   - npm install -g pm2
   - npm install
 script:
