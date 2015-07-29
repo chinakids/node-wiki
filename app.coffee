@@ -63,7 +63,7 @@ else
     #console.log('空口令登入')
     mongoose.connect 'mongodb://'+config.dbIp.split('/')[0]+':'+config.dbPort+'/'+config.dbName
   #更新目录
-  updata.menu(port)
+  updata.menu port
 
   #需要的参数先处理好
   app.post /^\/*/, (req, res, next) ->

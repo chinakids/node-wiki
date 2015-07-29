@@ -3,6 +3,7 @@ fs = require('fs')
 path = require('path')
 render = require('../tools/render')
 mdtools = require('../tools/markDown')
+updata = require './tools/updata'
 router = express.Router()
 
 # GET home page.
@@ -81,6 +82,7 @@ router.get '/delete', (req, res, next) ->
       dir.pop()
       #console.log path.join(__dirname, '../doc/' + dir.join('/'))
       #re = isEmpty path.join(__dirname, '../doc/' + dir.join('/'))
+      updata.menu req.httpPort
       res.send
         status : 1
         info : '删除成功'
