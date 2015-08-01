@@ -1,9 +1,9 @@
-express = require('express')
-fs = require('fs')
-path = require('path')
-render = require('../tools/render')
-mdtools = require('../tools/markDown')
-updata = require './tools/updata'
+express = require 'express'
+fs = require 'fs'
+path = require 'path'
+render = require '../tools/render'
+mdtools = require '../tools/markDown'
+updata = require '../tools/updata'
 router = express.Router()
 
 # GET home page.
