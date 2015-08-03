@@ -11,7 +11,7 @@ $ = Zepto window
 #初始化 marked 参数
 renderer = new markdown.Renderer()
 renderer.listitem = (text) ->
-  if not /^\[[ x]\]\s/.test text
+  unless /^\[[ x]\]\s/.test text
     return markdown.Renderer.prototype.listitem text
   #任务列表
   checkbox = $ '<input type="checkbox" disabled/>'

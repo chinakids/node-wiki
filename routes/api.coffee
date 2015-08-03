@@ -49,7 +49,7 @@ router.get '/getContent', (req, res, next) ->
 
 #api 保存文件数据
 router.post '/saveBookContent', (req,res,next) ->
-  if not req.loginInfo
+  unless req.loginInfo
     res.send
       status:0
       info:'此方法需要登陆'
@@ -75,7 +75,7 @@ router.post '/saveBookContent', (req,res,next) ->
 #API 创建文件
 router.post '/addFile', (req,res,next) ->
   #console.log(path.join(__dirname, '../doc'+req.body.file + '.md'));
-  if not req.loginInfo
+  unless req.loginInfo
     res.send
       status:0
       info:'此方法需要登陆'
@@ -86,11 +86,11 @@ router.post '/addFile', (req,res,next) ->
     fs.exists path.join(__dirname, '../doc'+arr), (exists) ->
       #console.log(req.httpPort);
       # => false
-      if not exists
+      unless exists
         #目录不存在先创建目录
         fs.mkdirSync path.join(__dirname, '../doc'+arr)
         fs.exists path.join(__dirname, '../doc'+req.body.file + '.md'), (exists) ->
-          if not exists
+          unless exists
             fs.writeFile decodeURI(path.join(__dirname, '../doc'+req.body.file + '.md')), '#Hello World! \n', (err) ->
               if err
                 console.log err
@@ -113,7 +113,7 @@ router.post '/addFile', (req,res,next) ->
       else
         #直接创建
         fs.exists path.join(__dirname, '../doc'+req.body.file + '.md'), (exists) ->
-          if not exists
+          unless exists
             fs.writeFile decodeURI(path.join(__dirname, '../doc'+req.body.file + '.md')), '#Hello Worldnot \n', (err) ->
               if err
                 console.log err
