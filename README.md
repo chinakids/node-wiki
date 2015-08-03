@@ -1,16 +1,16 @@
 # Node Wiki - 一个 nodejs 的 markdown 在线管理和编辑工具
 
 <img src='https://chinakids.github.io/PicturesStore/image/node-wiki/markdown-logo.png' height='150' align='left'/>
-:green_book:一个基于nodejs 的 wiki 知识管理系统，文档保存使用 markdown，数据库使用 mongodb，采用多线程技术，jade 模板技术(经过了预编译)，
+:green_book:一个基于nodejs 的 wiki 知识管理系统，文档保存使用 markdown，数据库使用 mongodb，采用多线程技术，jade 模板技术(经过了预编译)；
 markdown 扩展流程图、函数、甘特图、顺序图等工具图语法；还扩展了 emoji、Art-reactor、font-awesome、ionicons等图标，极大的增强了可用性。
-文档库支持关键字检索（目前只支持文件检索,后期将支持全文检索）
+文档库支持关键字检索（目前只支持文件检索,后期将支持全文检索）&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
 [![npm version](https://badge.fury.io/js/npm.svg)](http://badge.fury.io/js/npm)
 [![Build Status](https://travis-ci.org/chinakids/node-wiki.svg?branch=master)](https://travis-ci.org/chinakids/node-wiki)
 [![dependency](https://david-dm.org/chinakids/node-wiki.svg)](https://david-dm.org/chinakids/node-wiki#info=dependencies&view=list)
 [![devDependency](https://david-dm.org/chinakids/node-wiki/dev-status.svg)](https://david-dm.org/chinakids/node-wiki#info=devDependencies&view=list)
 
-### 预览
+### 预览截图
 
 ![screenshot](https://github.com/chinakids/node-wiki/raw/master/screenshot.png)
 ![screenshot](https://github.com/chinakids/node-wiki/raw/master/screenshot2.png)
@@ -22,6 +22,7 @@ markdown 扩展流程图、函数、甘特图、顺序图等工具图语法；�
 -  1、基础环境：node、git、brew(其他平台请参照其他包管理工具)、ruby(brew依赖)
 
 -  2、安装mongodb并启动服务:   `brew install mongodb`   &   `mongod --config /home/mongodb/conf/mongod.conf`(配置文件每个人路径可能不同)
+
 
 
 #####1.2 加载启动
@@ -49,13 +50,14 @@ markdown 扩展流程图、函数、甘特图、顺序图等工具图语法；�
 
 -   4.在线编辑器采用基于 [ace](https://github.com/ajaxorg/ace) 开发的 [markdown-plus](https://github.com/tylingsoft/markdown-plus),扩展支持 [Art-Reactor](https://github.com/chinakids/Art-Reactor) 字体，保存功能
 
-###3.涉及技能
+###3.技术栈
 
 - jade
 - node
 - express
 - markdown
 - mongodb
+- worker
 
 ###4.缺陷
 
