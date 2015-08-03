@@ -7,8 +7,8 @@ markdown 扩展流程图、函数、甘特图、顺序图等工具图语法；�
 
 [![npm version](https://badge.fury.io/js/npm.svg)](http://badge.fury.io/js/npm)
 [![Build Status](https://travis-ci.org/chinakids/node-wiki.svg?branch=master)](https://travis-ci.org/chinakids/node-wiki)
-[![dependency](https://david-dm.org/chinakids/node-wiki.svg)](https://github.com/chinakids/node-wiki)
-[![devDependency](https://david-dm.org/chinakids/node-wiki/dev-status.svg)](https://github.com/chinakids/node-wiki)
+[![dependency](https://david-dm.org/chinakids/node-wiki.svg)](https://david-dm.org/chinakids/node-wiki#info=dependencies&view=list)
+[![devDependency](https://david-dm.org/chinakids/node-wiki/dev-status.svg)](https://david-dm.org/chinakids/node-wiki#info=devDependencies&view=list)
 
 ### 预览
 
