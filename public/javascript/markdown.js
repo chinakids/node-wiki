@@ -414,7 +414,7 @@ $(document).ready(function() {
     if(/^:.+:$/.test(value)) {
       value = /^:(.+):$/.exec(value)[1];
     }
-    editor.insert('<img src="https://s.tylingsoft.com/emoji-icons/' + value + '.png" width="18"/>');
+    editor.insert('<img src="/lib/emoji-icons/' + value + '.png" width="18"/>');
   });
 
   // Font Awesome icon
@@ -423,6 +423,14 @@ $(document).ready(function() {
       value = value.substring(3);
     }
     editor.insert('<i class="fa fa-' + value + '"/>');
+  });
+
+  // Font Awesome icon
+  prompt_for_a_value('ar', function(value){
+    if(value.substring(0, 3) == 'ar-') {
+      value = value.substring(3);
+    }
+    editor.insert('<i class="ar ar-' + value + '"/>');
   });
 
   // Ionicons icon
