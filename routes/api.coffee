@@ -5,6 +5,7 @@ _ = require 'underscore'
 updata = require '../tools/updata'
 treeModel = require '../models/tree'
 bookModel = require '../models/book'
+render = require '../tools/render'
 router = express.Router()
 
 #API Route
