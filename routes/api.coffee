@@ -151,11 +151,12 @@ router.get '/delete', (req, res, next) ->
   else
     md = req.query.md
     #判断空文件夹
-    isEmpty = (path) ->
+    isEmpty = (path,callback) ->
       status = true
+      callback = callback or () ->
       dirList = fs.readdirSync path
       dirList.forEach (item) ->
-        console.log item
+        #console.log item
         if fs.statSync(path + '/' + item).isDirectory()
           status = false
           #console.log '是文件夹'
@@ -165,7 +166,17 @@ router.get '/delete', (req, res, next) ->
             #console.log '是文件'
             status = false
             return false
-      return status
+      if status
+        #为空,删除文件夹后向上遍历
+        fs.rmdir path
+        newPath = path.split('/')
+        #console.log newPath
+        newPath.pop()
+        #console.log newPath
+        isEmpty newPath.join('/'),callback
+      else
+        #不为空,执行 callback
+        callback()
     fs.unlink path.join(__dirname, '../doc/' + md + '.md'), (err) ->
       if err
         console.log err
@@ -177,12 +188,13 @@ router.get '/delete', (req, res, next) ->
         #判断文件删除后目录是否为空
         dir = md.split('/')
         dir.pop()
-        #console.log path.join(__dirname, '../doc/' + dir.join('/'))
-        #re = isEmpty path.join(__dirname, '../doc/' + dir.join('/'))
-        updata.menu req.httpPort
-        res.send
-          status : 1
-          info : '删除成功'
+        console.log path.join(__dirname, '../doc/' + dir.join('/'))
+        isEmpty path.join(__dirname, '../doc/' + dir.join('/')), () ->
+          updata.menu req.httpPort
+          res.send
+            status : 1
+            info : '删除成功'
+          return
     return
 
 module.exports = router

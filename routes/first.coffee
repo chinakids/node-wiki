@@ -111,7 +111,7 @@ router.post '/addAdmin', (req, res, next) ->
         userName   : userObj.name
         passWord   : userObj.password
         email      : userObj.email
-        role       : 99,
+        role       : 99
         admin      : true
       _user = _.extend user[0],_user
       _user.save (err, user) ->
