@@ -226,7 +226,7 @@ T3: 2014-01-02, 9d"></i>
       window.localStorage.removeItem(key);
     }
   }
-  function auto(){
+  function autoSave(){
     if(db.get(getUrlMes().md)){
       if(confirm('检测到有自动保存记录，是否继续编辑？')){
         //是
@@ -250,7 +250,7 @@ T3: 2014-01-02, 9d"></i>
       editor.session.setValue(data.content, -1);
       oldContent = data.content;
       $('#title').html('<i class="fa fa-book"></i>'+data.title);
-      auto();
+      autoSave();
     });
     $('#fullscreen').click(function(){
       $('.ui-layout-toggler-east').trigger('click');
