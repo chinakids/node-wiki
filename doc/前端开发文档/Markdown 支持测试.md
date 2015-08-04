@@ -1,10 +1,6 @@
 # Markdown
 
-测试
-
 A versatile markdown editor. Besides common markdown, GitHub flavored markdown, it also supports task lists, emojis, Font Awesome icons, Ionicons icons, mathematical formulae, flowcharts, sequence diagrams, gantt diagrams, Vim mode and Emacs mode.
-
-
 
 
 ## Code blocks with syntax highlight

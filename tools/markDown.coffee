@@ -1,4 +1,4 @@
-markdown = require 'marked'
+marked = require 'marked'
 mermaid = require 'mermaid'
 katex = require 'katex'
 domino = require 'domino'
@@ -8,16 +8,19 @@ window = domino.createWindow()
 
 $ = Zepto window
 
+String::repeat = (i) ->
+    new Array(i + 1).join(this)
+
 #初始化 marked 参数
-renderer = new markdown.Renderer()
+renderer = new marked.Renderer()
 renderer.listitem = (text) ->
   unless /^\[[ x]\]\s/.test text
-    return markdown.Renderer.prototype.listitem text
+    return marked.Renderer::listitem text
   #任务列表
   checkbox = $ '<input type="checkbox" disabled/>'
   if /^\[x\]\s/.test text # 完成的任务列表
     checkbox.attr 'checked', true
-  $ markdown.Renderer.prototype.listitem text.substring 3
+  $ marked.Renderer::listitem text.substring 3
     .addClass 'task-list-item'
     .prepend(checkbox)[0]
     .outerHTML
@@ -36,10 +39,11 @@ renderer.codespan = (text) ->
         displayMode: false
     catch err
       '<code>' + err + '</code>'
-  markdown.Renderer.prototype.codespan.apply this, arguments
+  marked.Renderer::codespan.apply this, arguments
 
 renderer.code = (code, language, escaped, line_number) ->
-  code = code.trim();
+  code = code.trim()
+  console.log '////////////'+language+'///////'+escaped+'///////'+line_number
   firstLine = code
     .split(/\n/)[0]
     .trim()
@@ -55,31 +59,31 @@ renderer.code = (code, language, escaped, line_number) ->
               displayMode: true
             return
           catch err
-            tex += '<pre>' + err + '</pre>'
+            tex += '<pre>'+err+'</pre>'
             return
         return
-    return '<div data-line="' + line_number + '">' + tex + '</div>'
+    return '<div data-line="'+line_number+'">'+tex+'</div>'
   else if firstLine is 'gantt' or firstLine is 'sequenceDiagram' or firstLine.match /^graph (?:TB|BT|RL|LR|TD);?$/
     if firstLine is 'sequenceDiagram'
       code += '\n'; # 如果末尾没有空行，则语法错误
     if mermaid.mermaidAPI.parse code
-      return '<div class="mermaid" data-line="' + line_number + '">' + code +'</div>';
+      return '<div class="mermaid" data-line="'+line_number+'">'+code+'</div>'
     else
-      return '<pre data-line="' + line_number + '">' + mermaidError +'</pre>'
+      return '<pre data-line="'+line_number+'">'+mermaidError+'</pre>'
   else
-    return markdown.Renderer.prototype.code.apply(this, arguments);
+    return marked.Renderer::code.apply(this, arguments);
 
 renderer.html = (html) ->
-  result = markdown.Renderer.prototype.html.apply this, arguments
+  result = marked.Renderer::html.apply this, arguments
   h = $ result.bold()
   h.html()
 
 renderer.paragraph = (text) ->
-  result = markdown.Renderer.prototype.paragraph.apply this, arguments
+  result = marked.Renderer::paragraph.apply this, arguments
   h = $ result.bold()
   h.html();
 
-markdown.setOptions
+marked.setOptions
   renderer: renderer
   gfm: true
   tables: true
@@ -91,7 +95,7 @@ markdown.setOptions
 
 
 
-markDown =
+markdown =
   #
   #   获取目录
   #   @param  {[str]} buffStr [读取的文件字符串]
@@ -142,12 +146,13 @@ markDown =
     callback html, menu
 
   #
-  #   markdown 转 html
-  #   @param  {[type]}   buffStr  [传入的 markdown 文档]
+  #   marked 转 html
+  #   @param  {[type]}   buffStr  [传入的 marked 文档]
   #   @param  {Function} callback [description]
   #
   toHtml: (buffStr, callback) ->
-    html = markdown buffStr
+    html = marked buffStr
+    console.log html
     this.getMenu html, callback
 
-module.exports = markDown
+module.exports = markdown

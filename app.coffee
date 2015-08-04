@@ -131,7 +131,7 @@ app.use (err, req, res, next) ->
   else
     render.error res,
       title: err.message
-      error: {}
+      error: err
       map:[]
       tree: req.tree
       loginInfo:req.loginInfo
