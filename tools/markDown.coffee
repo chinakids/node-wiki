@@ -8,9 +8,6 @@ window = domino.createWindow()
 
 $ = Zepto window
 
-String::repeat = (i) ->
-    new Array(i + 1).join(this)
-
 #初始化 marked 参数
 renderer = new marked.Renderer()
 renderer.listitem = (text) ->

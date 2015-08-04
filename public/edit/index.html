@@ -291,6 +291,7 @@ T3: 2014-01-02, 9d"></i>
             //console.log(data);
             if(data.status == 1){
               _this.removeClass('load');
+              db.remove(getUrlMes().md);
               $('.edit-foot .success').fadeIn(1000, function() {
                 var _this = $(this);
                 setTimeout(function(){
