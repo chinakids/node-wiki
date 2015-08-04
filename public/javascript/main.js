@@ -468,7 +468,7 @@ $(function() {
   //删除图书
   $('.jq-rmbook').click(function(){
     var md= $(this).attr('data-md');
-    $.get('./delete?md='+md,function(data){
+    $.get('./api/delete?md='+md,function(data){
       console.log(data);
       if(data.status == 1){
         window.location.href = '/'

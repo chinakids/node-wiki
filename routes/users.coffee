@@ -98,10 +98,10 @@ router.post '/register', (req, res, next) ->
     # 判断用户是否存在
     if user.length<=0
       _user = new usermodel
-        userName   : userObj.name,
-        passWord   : userObj.password,
-        email      : userObj.email,
-        role       : userObj.role,
+        userName   : userObj.name
+        passWord   : userObj.password
+        email      : userObj.email
+        role       : userObj.role
         admin      : false
       _user.save (err, user) ->
         if err
@@ -116,4 +116,4 @@ router.post '/register', (req, res, next) ->
         info:'邮箱已被注册'
     return
 
-module.exports = router;
+module.exports = router
