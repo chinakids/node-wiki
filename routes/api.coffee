@@ -91,7 +91,7 @@ router.post '/addFile', (req,res,next) ->
         fs.mkdirSync path.join(__dirname, '../doc'+arr)
         fs.exists path.join(__dirname, '../doc'+req.body.file + '.md'), (exists) ->
           unless exists
-            fs.writeFile decodeURI(path.join(__dirname, '../doc'+req.body.file + '.md')), '#Hello World! \n', (err) ->
+            fs.writeFile decodeURI(path.join(__dirname, '../doc'+req.body.file + '.md')), '# Hello World! \n', (err) ->
               if err
                 console.log err
                 res.send
@@ -114,7 +114,7 @@ router.post '/addFile', (req,res,next) ->
         #直接创建
         fs.exists path.join(__dirname, '../doc'+req.body.file + '.md'), (exists) ->
           unless exists
-            fs.writeFile decodeURI(path.join(__dirname, '../doc'+req.body.file + '.md')), '#Hello World! \n', (err) ->
+            fs.writeFile decodeURI(path.join(__dirname, '../doc'+req.body.file + '.md')), '# Hello World! \n', (err) ->
               if err
                 console.log err
                 res.send
