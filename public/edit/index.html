@@ -184,6 +184,7 @@ T3: 2014-01-02, 9d"></i>
       <ul class="edit-foot">
         <li>
           <p class="success">* 保存成功</p>
+          <p class="success-auto">* 自动保存成功(本地)</p>
           <p class="error">* 保存失败</p>
         </li>
         <li class="f-r"><a href="javascript:;" class="close">取消</a></li>
@@ -204,12 +205,52 @@ T3: 2014-01-02, 9d"></i>
     }
     return req;
   }
+  //自动保存,每5s,db 操作方法
+  var db = {
+    get : function(key){
+      var data = window.localStorage[key] || "";
+      return data;
+    },
+    set : function(key,data){
+      if(typeof(data) == "object"){
+        window.localStorage[key] = data;
+        for(item in data){
+          window.localStorage[item] = data[item];
+        }
+      }else{
+        window.localStorage[key] = data;
+      }
+    },
+    remove : function(key){
+      //console.log("close:"+key);
+      window.localStorage.removeItem(key);
+    }
+  }
+  function auto(){
+    if(db.get(getUrlMes().md)){
+      if(confirm('检测到有自动保存记录，是否继续编辑？')){
+        //是
+        editor.session.setValue(db.get(getUrlMes().md), -1);
+      }
+    }
+    var time = setInterval(function(){
+      //存入
+      db.set(getUrlMes().md,editor.session.getValue())
+      $('.edit-foot .success-auto').fadeIn(1000, function() {
+        var _this = $(this);
+        setTimeout(function(){
+          _this.fadeOut(1000);
+        },1000)
+      });
+    },10000)
+  }
   $(function(){
     var oldContent = '';
     $.get('/api/getContent?md='+getUrlMes().md, function(data) { // load sample text
       editor.session.setValue(data.content, -1);
       oldContent = data.content;
       $('#title').html('<i class="fa fa-book"></i>'+data.title);
+      auto();
     });
     $('#fullscreen').click(function(){
       $('.ui-layout-toggler-east').trigger('click');
@@ -222,7 +263,7 @@ T3: 2014-01-02, 9d"></i>
             dialog.close();
             dialog.remove();
         }else{
-          if(!confirm('文档尚未保存\n 是否确认退出？')){
+          if(!confirm('文档尚未保存\n 是否确认退出？(下次可继续编辑)')){
             return false;
           }
   				dialog.close();
@@ -251,24 +292,27 @@ T3: 2014-01-02, 9d"></i>
             if(data.status == 1){
               _this.removeClass('load');
               $('.edit-foot .success').fadeIn(1000, function() {
+                var _this = $(this);
                 setTimeout(function(){
-                  $(this).hide();
+                  _this.hide();
                   window.top.location.reload();
                 },1000)
               });
             }else{
               $('.edit-foot .error').fadeIn(1000, function() {
+                var _this = $(this);
                 setTimeout(function(){
-                  $(this).hide();
+                  _this.hide();
                 },1000)
               });
             }
           })
-          //console.log(editor.session.getValue());
         }
       }
 
     })
+
+
   })
   </script>
 </html>

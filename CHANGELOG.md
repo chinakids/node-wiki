@@ -4,6 +4,7 @@
 - 增加删除功能（管理员拥有）
 - 修改前端 markdown 解释器：markedown -> marked，与后端解释器保持一致
 - 后端代码完整 coffee 化
+- 增加自动保存功能，localstronge
 
 ## V1.1.2(2015-07-22)
 - 增加初次部署流程,将 config/config.js中的 `isFirst` 改为 `false`,开启初次部署。
