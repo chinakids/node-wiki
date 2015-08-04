@@ -171,6 +171,7 @@ router.get '/delete', (req, res, next) ->
         fs.rmdir path
         newPath = path.split('/')
         newPath.pop()
+        console.log newPath.join('/')
         isEmpty newPath.join('/'),callback
       else
         #不为空,执行 callback
@@ -183,10 +184,13 @@ router.get '/delete', (req, res, next) ->
           info : '删除失败'
       else
         console.log '文件'+md+'.md 删除成功!'
+        #删除数据库对应内容
+        bookModel.deleteByUrl path.join(__dirname, '../doc/' + md + '.md'), (err,book) ->
+          console.log err
         #判断文件删除后目录是否为空
         dir = md.split('/')
         dir.pop()
-        console.log path.join(__dirname, '../doc/' + dir.join('/'))
+        #console.log path.join(__dirname, '../doc/' + dir.join('/'))
         isEmpty path.join(__dirname, '../doc/' + dir.join('/')), () ->
           updata.menu req.httpPort
           res.send

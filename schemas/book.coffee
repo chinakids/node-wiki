@@ -42,9 +42,9 @@ BookSchema.statics =
         _id:id
       .sort 'meta.updateAt'
       .exec cb
-  findByUrl : (id,cb) ->
+  findByUrl : (path,cb) ->
     @.find
-        path:id
+        path:path
       .sort 'meta.updateAt'
       .exec cb
   findByName : (name,cb) ->
@@ -52,6 +52,11 @@ BookSchema.statics =
         name:
           $regex:name
           $options:'i'
+      .sort 'meta.updateAt'
+      .exec cb
+  deleteByUrl : (path,cb) ->
+    @.remove
+        path:path
       .sort 'meta.updateAt'
       .exec cb
 
