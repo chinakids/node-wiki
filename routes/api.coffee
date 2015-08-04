@@ -167,12 +167,10 @@ router.get '/delete', (req, res, next) ->
             status = false
             return false
       if status
-        #为空,删除文件夹后向上遍历
+        #为空,删除文件夹后向上递归
         fs.rmdir path
         newPath = path.split('/')
-        #console.log newPath
         newPath.pop()
-        #console.log newPath
         isEmpty newPath.join('/'),callback
       else
         #不为空,执行 callback
