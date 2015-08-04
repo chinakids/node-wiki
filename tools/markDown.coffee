@@ -28,6 +28,7 @@ renderer.listitem = (text) ->
 renderer.codespan = (text) ->
   if /^\$.+\$$/.test text
     raw = /^\$(.+)\$$/.exec(text)[1]
+    #console.log /^\$(.+)\$$/.exec(text)[1]
     line = raw
       .replace /&lt;/g, '<'
       .replace /&gt;/g, '>'
@@ -35,10 +36,10 @@ renderer.codespan = (text) ->
       .replace /&quot;/g, '"'
       .replace /&#39;/g, "'"
     try
-      katex.renderToString line,
+      return katex.renderToString line,
         displayMode: false
     catch err
-      '<code>' + err + '</code>'
+      return '<code>' + err + '</code>'
   marked.Renderer::codespan.apply this, arguments
 
 renderer.code = (code, language, escaped, line_number) ->
@@ -152,7 +153,6 @@ markdown =
   #
   toHtml: (buffStr, callback) ->
     html = marked buffStr
-    console.log html
     this.getMenu html, callback
 
 module.exports = markdown
