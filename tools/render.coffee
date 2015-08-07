@@ -1,14 +1,7 @@
-fs = require "fs"
-path = require "path"
-jade = require "jade"
-
-pages =
-  index: "index.jade"
-  first: "first.jade"
-  list: "list.jade"
-  login: "login.jade"
-  register: "register.jade"
-  error: "error.jade"
+fs = require 'fs'
+path = require 'path'
+jade = require 'jade'
+pages =require './../views/viewConfig'
 
 
 compiledJade = {}
@@ -37,7 +30,7 @@ preCompile = (filePath, pageName) ->
   # fs.readFile( path.join( viewPathSet.viewer, p+'.jade' ), function( err, jadeStr ){
   fs.readFile filePath, (err, jadeStr) ->
     if err
-      console.log "read jade file err: " + filePath + ".jade"
+      console.log 'read jade file err: ' + filePath + '.jade'
     else
       compiledJade[pageName] = jade.compile jadeStr, compileOption
       render[pageName] = (res, data) ->
@@ -45,9 +38,9 @@ preCompile = (filePath, pageName) ->
         sendPage res, html
         return
       done++
-      console.log "\tre compile jade views" if done >= all
+      console.log '\tre compile jade views' if done >= all
 
-console.log "\tre compile jade views"
+console.log '\tre compile jade views'
 compileRenderService()
 
 module.exports = render

@@ -31,7 +31,7 @@ renderer.codespan = (text) ->
       .replace /&gt;/g, '>'
       .replace /&amp;/g, '&'
       .replace /&quot;/g, '"'
-      .replace /&#39;/g, "'"
+      .replace /&#39;/g, '\''
     try
       return katex.renderToString line,
         displayMode: false
