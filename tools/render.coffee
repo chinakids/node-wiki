@@ -1,16 +1,31 @@
 fs = require 'fs'
 path = require 'path'
 jade = require 'jade'
-pages =require './../views/viewConfig'
+#pages =require './../views/viewConfig'
 
-
+pages = {}
 compiledJade = {}
 compileOption =
   filename: path.join(__dirname,'./../views/layout')
 
+
 render = {}
 done = 0
 all = undefined
+
+#递归创建页面方法
+forPage = (callback) ->
+  views = path.join(__dirname, '../views')
+  dirList = fs.readdirSync views
+  dirList.forEach (item) ->
+    if not fs.statSync(views + '/' + item).isDirectory()
+      #console.log item.indexOf('.jade')
+      if item.indexOf('.jade') isnt -1
+        pages[item.split('.')[0]] = item
+    return
+  callback() if callback
+  console.log pages
+
 
 # res发送html字符串
 sendPage = (res, html) ->
@@ -41,6 +56,6 @@ preCompile = (filePath, pageName) ->
       console.log '\tre compile jade views' if done >= all
 
 console.log '\tre compile jade views'
-compileRenderService()
+forPage compileRenderService()
 
 module.exports = render
