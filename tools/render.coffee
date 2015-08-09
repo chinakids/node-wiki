@@ -1,7 +1,6 @@
 fs = require 'fs'
 path = require 'path'
 jade = require 'jade'
-#pages =require './../views/viewConfig'
 
 pages = {}
 compiledJade = {}
@@ -19,7 +18,6 @@ forPage = (callback) ->
   dirList = fs.readdirSync views
   dirList.forEach (item) ->
     if not fs.statSync(views + '/' + item).isDirectory()
-      #console.log item.indexOf('.jade')
       if item.indexOf('.jade') isnt -1
         pages[item.split('.')[0]] = item
     return
