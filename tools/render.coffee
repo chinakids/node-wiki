@@ -13,7 +13,7 @@ done = 0
 all = undefined
 
 #递归创建页面方法
-forPage = (callback) ->
+forPage = () ->
   views = path.join(__dirname, '../views')
   dirList = fs.readdirSync views
   dirList.forEach (item) ->
@@ -21,8 +21,7 @@ forPage = (callback) ->
       if item.indexOf('.jade') isnt -1
         pages[item.split('.')[0]] = item
     return
-  callback() if callback
-  console.log pages
+  compileRenderService pages
 
 
 # res发送html字符串
@@ -30,7 +29,7 @@ sendPage = (res, html) ->
   res.end html
 
 # 通过map实现每个页面渲染func的生成
-compileRenderService = ->
+compileRenderService = (pages)->
   done = 0
   all = 0
   for name of pages
@@ -51,9 +50,8 @@ preCompile = (filePath, pageName) ->
         sendPage res, html
         return
       done++
-      console.log '\tre compile jade views' if done >= all
+      console.log '\n* re compile jade views' if done >= all
 
-console.log '\tre compile jade views'
-forPage compileRenderService()
+forPage()
 
 module.exports = render
