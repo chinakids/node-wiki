@@ -55,7 +55,7 @@ router.post '/login', (req, res, next) ->
             maxAge: 60 * 1000 * 60 * 24 * 30
             httpOnly: true
         res.cookie 'name_sig',
-          rule.md5 user[0].email+'this_is_mixin_string'+req.cookies['connect.id'] ,
+          rule.md5(user[0].email+'this_is_mixin_string'+req.cookies['connect.id']),
             maxAge: 60 * 1000 * 60 * 24 * 30
             httpOnly: true
         res
