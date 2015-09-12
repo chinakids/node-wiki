@@ -124,6 +124,7 @@ app.use (req, res, next) ->
   err.status = 404
   next(err)
   return
+  
 app.use (err, req, res, next) ->
   res.status err.status or 500
   if not config.isFirst
