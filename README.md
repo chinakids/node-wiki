@@ -24,7 +24,6 @@ markdown 扩展流程图、函数、甘特图、顺序图等工具图语法；�
 -  2、安装mongodb并启动服务:   `brew install mongodb`   &   `mongod --config /home/mongodb/conf/mongod.conf`(配置文件每个人路径可能不同)
 
 
-
 #####1.2 加载启动
 
 - 1、 `git clone https://github.com/chinakids/node-wiki.git`
