@@ -199,4 +199,9 @@ router.get '/delete', (req, res, next) ->
           return
     return
 
+
+#上传图片接口
+
+
+
 module.exports = router
