@@ -201,7 +201,13 @@ router.get '/delete', (req, res, next) ->
 
 
 #上传图片接口
-
+router.get '/delete', (req, res, next) ->
+  unless req.loginInfo
+    res.send
+      status:0
+      info:'此方法需要登陆'
+  else
+    return
 
 
 module.exports = router
