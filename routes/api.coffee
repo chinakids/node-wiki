@@ -207,6 +207,9 @@ router.get '/delete', (req, res, next) ->
       status:0
       info:'此方法需要登陆'
   else
+    #上传图片，对比 hash 值判断是否存在
+    #如果存在，返回提示信息
+    #不存在，生成hash，生成 url，保存入数据库（ImageDb），保存 hash，返回对应信息
     return
 
 
