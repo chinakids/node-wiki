@@ -21,7 +21,7 @@ markdown 扩展流程图、函数、甘特图、顺序图等工具图语法；�
 
 -  1、基础环境：node、git、brew(其他平台请参照其他包管理工具)、ruby(brew依赖)
 
--  2、安装mongodb并启动服务:   `brew install mongodb`   &   `mongod --config /home/mongodb/conf/mongod.conf`(配置文件每个人路径可能不同)
+-  2、安装mongodb并启动服务:   `brew install mongodb`   &   `mongod --config /etc/mongod.conf`(配置文件每个人路径可能不同)
 
 
 #####1.2 加载启动
