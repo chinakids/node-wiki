@@ -13,5 +13,5 @@ config =
   dbPassword:''
   #是否初始化过
   isFirst: true
-
+  
 module.exports = config

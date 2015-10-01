@@ -12,7 +12,7 @@ usermodel = require '../models/users'
 cookieParser = require 'cookie-parser'
 router = express.Router()
 
-template = fs.readFileSync path.join(__dirname, '../config/config.js'),'utf8'
+template = fs.readFileSync path.join(__dirname, '../config/config.coffee'),'utf8'
 #GET First page.
 router.get '/', (req, res, next) ->
   #console.log('第一步')
@@ -91,7 +91,7 @@ router.post '/addAdmin', (req, res, next) ->
       _user.save (err, user) ->
         if err
           console.log err
-        fs.writeFile path.join(__dirname, '../config/config.js'), template, (err) ->
+        fs.writeFile path.join(__dirname, '../config/config.coffee'), template, (err) ->
           if err
             console.log err
             res.send
@@ -117,7 +117,7 @@ router.post '/addAdmin', (req, res, next) ->
       _user.save (err, user) ->
         if err
           console.log err
-        fs.writeFile path.join(__dirname, '../config/config.js'), template, (err) ->
+        fs.writeFile path.join(__dirname, '../config/config.coffee'), template, (err) ->
           if err
             console.log(err);
             res.send
