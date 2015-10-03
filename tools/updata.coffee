@@ -24,6 +24,7 @@ updata =
             return
         else
           #更新储存（一个 URL 只会有一条）
+          #do more 还要存入内容
           bookInfo =
             name    : name,
             path    : path,
