@@ -23,6 +23,7 @@ markdown 扩展流程图、函数、甘特图、顺序图等工具图语法；�
 
 -  2、安装mongodb并启动服务:   `brew install mongodb`   &   `mongod --config /etc/mongod.conf`(配置文件每个人路径可能不同)
 
+-  3、[注意:初次部署] 请将 config/config.js中的 `isFirst` 改为 `false`,浏览器访问开启初次部署，部署完成后重启服务器即可使用
 
 #####1.2 加载启动
 
