@@ -18,14 +18,6 @@ router.get '/', (req, res, next) ->
       map: []
       loginInfo:req.loginInfo
     return
-    #  res.render('index', {
-    #    title: 'Wiki 文档中心',
-    #    html: html,
-    #    menu: menu,
-    #    tree: req.tree,
-    #    map: [],
-    #    loginInfo:req.loginInfo
-    #  });
   return
 
 # GET home page.
